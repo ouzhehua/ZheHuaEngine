@@ -16,7 +16,7 @@ public class LuaConst
     {
         get
         {
-            return "jar:file://" + Application.dataPath + "!/assets/";
+            return Application.streamingAssetsPath;
         }
     }
 
@@ -24,7 +24,8 @@ public class LuaConst
     {
         get
         {
-            return Application.dataPath + "/Raw/";
+            return Application.streamingAssetsPath;
+            //return Application.dataPath + "/Raw/";
         }
     }
 
@@ -32,15 +33,12 @@ public class LuaConst
     {
         get
         {
-#if UNITY_ANDROID
-            return LuaAndroidBundlePath + LuaBundleName;
+#if UNITY_EDITOR || UNITY_STANDALONE
+            return System.IO.Path.Combine(LuaAndroidBundlePath, LuaBundleName);
+#elif UNITY_ANDROID
+            return System.IO.Path.Combine(LuaAndroidBundlePath, LuaBundleName);
 #elif UNITY_IPHONE
-            return LuaIosBundlePath + LuaBundleName;
-#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
-            return LuaEditorBundlePath + "/" + LuaBundleName;
-#else
-            Debug.LogError("Without This Platform");
-            string.Empty;
+            return System.IO.Path.Combine(LuaIosBundlePath, LuaBundleName);
 #endif
         }
     }

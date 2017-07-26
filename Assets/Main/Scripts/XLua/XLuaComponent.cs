@@ -47,6 +47,8 @@ public class XLuaComponent : MonoBehaviour
         {
             LoadLuaBundleAndLaunch();
         }
+#else
+        LoadLuaBundleAndLaunch();
 #endif
     }
 
@@ -72,6 +74,11 @@ public class XLuaComponent : MonoBehaviour
         }
     }
 
+    //void OnGUI()
+    //{
+    //    GUILayout.Label(LuaConst.LuaBundlePath);
+    //}
+
     public void Tick()
     {
         if (_luaEnv != null)
@@ -84,7 +91,7 @@ public class XLuaComponent : MonoBehaviour
     {
         byte[] fileData = null;
         //Debug.LogError("LuaLoader " + fileName);
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
         //UnityGameFramework.Runtime.BaseComponent baseComponent = UnityGameFramework.Runtime.GameEntry.GetComponent<UnityGameFramework.Runtime.BaseComponent>();
         //if (baseComponent.EditorResourceMode)
         if (UseLocalFiles)
@@ -99,7 +106,6 @@ public class XLuaComponent : MonoBehaviour
         fileData = LoadFromBundle (fileName);
 #elif UNITY_IPHONE
         fileData = LoadFromBundle (fileName);
-#else
 #endif
         return fileData;
     }
