@@ -2,8 +2,8 @@
 <UnityGameFramework>
   <AssetBundleBuilder>
     <Settings>
-      <InternalResourceVersion>0</InternalResourceVersion>
-      <WindowsSelected>False</WindowsSelected>
+      <InternalResourceVersion>3</InternalResourceVersion>
+      <WindowsSelected>True</WindowsSelected>
       <MacOSXSelected>False</MacOSXSelected>
       <IOSSelected>True</IOSSelected>
       <AndroidSelected>True</AndroidSelected>
@@ -17,8 +17,8 @@
       <IgnoreTypeTreeChangesSelected>False</IgnoreTypeTreeChangesSelected>
       <AppendHashToAssetBundleNameSelected>False</AppendHashToAssetBundleNameSelected>
       <ChunkBasedCompressionSelected>True</ChunkBasedCompressionSelected>
-      <BuildEventHandlerTypeName></BuildEventHandlerTypeName>
-      <OutputDirectory></OutputDirectory>
+      <BuildEventHandlerTypeName>UnityGameFramework.Editor.AssetBundleTools.AssetBundleBuildHandler</BuildEventHandlerTypeName>
+      <OutputDirectory>E:/ZheHuaUnityEngine/Assets/StreamingAssets</OutputDirectory>
     </Settings>
   </AssetBundleBuilder>
 </UnityGameFramework>

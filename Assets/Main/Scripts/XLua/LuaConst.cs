@@ -5,8 +5,9 @@ public class LuaConst
 {
     public static string LuaEditorPath = Application.dataPath + "/Main/LuaScripts/";	//lua 代码路径
 
+    public static string LuaFolderName = "luatemp";
     public static string LuaBundleName = "lua.dat";
-
+    public static string LuaPostfixName = ".lua.bytes";
     public static string LuaEditorBundlePath
     {
         get { return Application.streamingAssetsPath; }

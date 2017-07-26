@@ -167,23 +167,26 @@ public class XLuaComponent : MonoBehaviour
         AssetBundle bundle = download.assetBundle;
 
         string[] assetNames = bundle.GetAllAssetNames();
-        int lastCount = ".lua.bytes".Length;
+        int postfixCount = LuaConst.LuaPostfixName.Length;
 
-        BundleLuaData = new Dictionary<string, byte[]>();
-        for (int i = 0; i < assetNames.Length; i++)
+        if (assetNames.Length > 0)
         {
-            Debug.LogError(i + " " + assetNames[i]);
-            int pathNameLenght = assetNames[i].Length;
-            int beginIndex = assetNames[i].IndexOf("luatemp");
-            beginIndex += "luatemp/".Length;
-            int luaNameLengt = pathNameLenght - beginIndex - lastCount;
-            string luaPath = assetNames[i].Substring(beginIndex, luaNameLengt);
-            luaPath = luaPath.Replace('/', '.');
-            Debug.LogError(luaPath);
+            int beginIndex = assetNames[0].IndexOf(LuaConst.LuaFolderName);
+            beginIndex += (LuaConst.LuaFolderName + "/").Length;
 
-            TextAsset temp = bundle.LoadAsset<TextAsset>(assetNames[i]);
-            //Debug.LogError("Add " + luaPath);
-            BundleLuaData.Add(luaPath, temp.bytes);
+            BundleLuaData = new Dictionary<string, byte[]>();
+            for (int i = 0; i < assetNames.Length; i++)
+            {
+                Debug.LogError(i + " " + assetNames[i]);
+                int pathNameLenght = assetNames[i].Length;
+                int luaNameLengt = pathNameLenght - beginIndex - postfixCount;
+                string luaPath = assetNames[i].Substring(beginIndex, luaNameLengt);
+                luaPath = luaPath.Replace('/', '.');
+
+                TextAsset temp = bundle.LoadAsset<TextAsset>(assetNames[i]);
+                //Debug.LogError("Add " + luaPath);
+                BundleLuaData.Add(luaPath, temp.bytes);
+            }
         }
 
         bundle.Unload(false);
