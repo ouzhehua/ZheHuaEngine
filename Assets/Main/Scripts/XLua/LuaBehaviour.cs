@@ -17,9 +17,9 @@ public class LuaBehaviour : MonoBehaviour
     public string LuaFilePath;
     public Injection[] injections;
 
-    private Action luaStart;
-    private Action luaUpdate;
-    private Action luaOnDestroy;
+    private Action<LuaTable> luaStart;
+    private Action<LuaTable> luaUpdate;
+    private Action<LuaTable> luaOnDestroy;
 
     private LuaTable _luaInstance;
     private static LuaCustomDelegate.StringReturnTable creatorFunc;
@@ -39,21 +39,24 @@ public class LuaBehaviour : MonoBehaviour
         }
 
         _luaInstance = creatorFunc(LuaFilePath);
+        //_luaInstance.Set("self", this);
+        //_luaInstance.Set("MonoBehaviour", this);
+        _luaInstance.Set("gameObject", gameObject);
+        _luaInstance.Set("transform", transform);
 
-        _luaInstance.Set("self", this);
         foreach (var injection in injections)
         {
             _luaInstance.Set(injection.name, injection.value);
         }
 
-        Action luaAwake = _luaInstance.Get<Action>("Awake");
+        Action<LuaTable> luaAwake = _luaInstance.Get<Action<LuaTable>>("Awake");
         _luaInstance.Get("Start", out luaStart);
         _luaInstance.Get("Update", out luaUpdate);
         _luaInstance.Get("OnDestroy", out luaOnDestroy);
 
         if (luaAwake != null)
         {
-            luaAwake();
+            luaAwake(luaInstance);
         }
     }
 
@@ -61,7 +64,7 @@ public class LuaBehaviour : MonoBehaviour
     {
         if (luaStart != null)
         {
-            luaStart();
+            luaStart(luaInstance);
         }
     }
 
@@ -69,7 +72,7 @@ public class LuaBehaviour : MonoBehaviour
     {
         if (luaUpdate != null)
         {
-            luaUpdate();
+            luaUpdate(luaInstance);
         }
     }
 
@@ -77,7 +80,7 @@ public class LuaBehaviour : MonoBehaviour
     {
         if (luaOnDestroy != null)
         {
-            luaOnDestroy();
+            luaOnDestroy(luaInstance);
         }
         luaOnDestroy = null;
         luaUpdate = null;

@@ -7,6 +7,8 @@ using XLua;
 
 public class XLuaComponent : MonoBehaviour
 {
+    public bool UseLocalFiles = true;
+
     private static XLuaComponent _instance;
     public static XLuaComponent instance
     {
@@ -37,15 +39,23 @@ public class XLuaComponent : MonoBehaviour
         _instance = this;
         Debug.Log("XLuaComponent Awake");
 #if UNITY_EDITOR
-        Launch();
+        if (UseLocalFiles)
+        {
+            Launch();
+        }
+        else
+        {
+            LoadLuaBundleAndLaunch();
+        }
 #endif
     }
 
-    bool inited = false;
+    bool _inited = false;
+    public bool inited { get { return _inited; } }
     public void Launch()
     {
         _luaEnv.DoString("require 'Main'");
-        inited = true;
+        _inited = true;
     }
 
     public void LoadLuaBundleAndLaunch()
@@ -56,7 +66,7 @@ public class XLuaComponent : MonoBehaviour
 
     void Update ()
     {
-        if(inited)
+        if (_inited)
         {
             Tick();
         }
@@ -75,16 +85,16 @@ public class XLuaComponent : MonoBehaviour
         byte[] fileData = null;
         //Debug.LogError("LuaLoader " + fileName);
 #if UNITY_EDITOR
-        fileData = LoadFromFile(fileName);
         //UnityGameFramework.Runtime.BaseComponent baseComponent = UnityGameFramework.Runtime.GameEntry.GetComponent<UnityGameFramework.Runtime.BaseComponent>();
         //if (baseComponent.EditorResourceMode)
-        //{
-        //    fileData = LoadFromFile(fileName);
-        //}
-        //else
-        //{
-        //    fileData = LoadFromBundle(fileName);
-        //}
+        if (UseLocalFiles)
+        {
+            fileData = LoadFromFile(fileName);
+        }
+        else
+        {
+            fileData = LoadFromBundle(fileName);
+        }
 #elif UNITY_ANDROID
         fileData = LoadFromBundle (fileName);
 #elif UNITY_IPHONE
