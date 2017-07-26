@@ -34,8 +34,11 @@ public class XLuaComponent : MonoBehaviour
     {
         _luaEnv = new LuaEnv();
         _luaEnv.AddLoader(LuaLoader);
-        Debug.Log("XLuaComponent Awake");
         _instance = this;
+        Debug.Log("XLuaComponent Awake");
+#if UNITY_EDITOR
+        Launch();
+#endif
     }
 
     bool inited = false;
@@ -70,18 +73,18 @@ public class XLuaComponent : MonoBehaviour
     private byte[] LuaLoader(ref string fileName)
     {
         byte[] fileData = null;
-        Debug.LogError("LuaLoader " + fileName);
-
+        //Debug.LogError("LuaLoader " + fileName);
 #if UNITY_EDITOR
-        UnityGameFramework.Runtime.BaseComponent baseComponent = UnityGameFramework.Runtime.GameEntry.GetComponent<UnityGameFramework.Runtime.BaseComponent>();
-        if (baseComponent.EditorResourceMode)
-        {
-            fileData = LoadFromFile(fileName);
-        }
-        else
-        {
-            fileData = LoadFromBundle(fileName);
-        }
+        fileData = LoadFromFile(fileName);
+        //UnityGameFramework.Runtime.BaseComponent baseComponent = UnityGameFramework.Runtime.GameEntry.GetComponent<UnityGameFramework.Runtime.BaseComponent>();
+        //if (baseComponent.EditorResourceMode)
+        //{
+        //    fileData = LoadFromFile(fileName);
+        //}
+        //else
+        //{
+        //    fileData = LoadFromBundle(fileName);
+        //}
 #elif UNITY_ANDROID
         fileData = LoadFromBundle (fileName);
 #elif UNITY_IPHONE
