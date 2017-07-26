@@ -176,7 +176,8 @@ public class XLuaComponent : MonoBehaviour
             Debug.LogError(luaPath);
 
             TextAsset temp = bundle.LoadAsset<TextAsset>(assetNames[i]);
-            BundleLuaData.Add(assetNames[i], temp.bytes);
+            //Debug.LogError("Add " + luaPath);
+            BundleLuaData.Add(luaPath, temp.bytes);
         }
 
         bundle.Unload(false);
