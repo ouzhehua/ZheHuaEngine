@@ -160,7 +160,7 @@ public class XLuaComponent : MonoBehaviour
 
     private IEnumerator LoadBundleLuaFiles(string path)
     {
-        WWW download = new WWW(path);
+        var download = AssetBundle.LoadFromFileAsync(path);
 
         yield return download;
 

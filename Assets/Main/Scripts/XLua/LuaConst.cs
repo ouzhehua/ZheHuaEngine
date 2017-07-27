@@ -35,7 +35,7 @@ public class LuaConst
         get
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
-            return System.IO.Path.Combine(LuaAndroidBundlePath, LuaBundleName);
+            return System.IO.Path.Combine(LuaEditorBundlePath, LuaBundleName);
 #elif UNITY_ANDROID
             return System.IO.Path.Combine(LuaAndroidBundlePath, LuaBundleName);
 #elif UNITY_IPHONE
