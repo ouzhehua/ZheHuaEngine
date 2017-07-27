@@ -1,0 +1,48 @@
+[21:36:59.078][INFO] Build Start Time: 2017-07-26 21:36:59.076
+[21:36:59.078][INFO] Start prepare AssetBundle collection...
+[21:36:59.102][INFO] Prepare AssetBundle collection complete.
+[21:36:59.102][INFO] Start analyze assets dependency...
+[21:36:59.120][INFO] Analyze assets dependency complete.
+[21:36:59.120][INFO] Start prepare build map...
+[21:36:59.125][INFO] Prepare build map complete.
+[21:36:59.125][INFO] Start build AssetBundles for selected build targets...
+[21:36:59.126][INFO] Start build AssetBundles for 'StandaloneWindows'...
+[21:36:59.126][INFO] Working path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Working/windows/'.
+[21:36:59.127][INFO] Output package path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Package/1_0_2/windows/'.
+[21:36:59.127][INFO] Output full path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Full/1_0_2/windows/'.
+[21:36:59.128][INFO] Output packed path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Packed/1_0_2/windows/'.
+[21:36:59.129][INFO] Unity start build AssetBundles for 'StandaloneWindows'...
+[21:37:01.624][INFO] Unity build AssetBundles for 'StandaloneWindows' complete.
+[21:37:01.629][INFO] Start process 'lua' for 'StandaloneWindows'...
+[21:37:01.643][INFO] Process 'lua' for 'StandaloneWindows' complete.
+[21:37:01.646][INFO] Process package list for 'StandaloneWindows' complete.
+[21:37:01.652][INFO] Process version list for 'StandaloneWindows' complete.
+[21:37:01.655][INFO] Process readonly list for 'StandaloneWindows' complete.
+[21:37:01.661][INFO] Build AssetBundles for 'StandaloneWindows' success.
+[21:37:01.661][INFO] Start build AssetBundles for 'iOS'...
+[21:37:01.662][INFO] Working path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Working/ios/'.
+[21:37:01.662][INFO] Output package path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Package/1_0_2/ios/'.
+[21:37:01.664][INFO] Output full path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Full/1_0_2/ios/'.
+[21:37:01.664][INFO] Output packed path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Packed/1_0_2/ios/'.
+[21:37:01.665][INFO] Unity start build AssetBundles for 'iOS'...
+[21:37:07.340][INFO] Unity build AssetBundles for 'iOS' complete.
+[21:37:07.349][INFO] Start process 'lua' for 'iOS'...
+[21:37:07.352][INFO] Process 'lua' for 'iOS' complete.
+[21:37:07.353][INFO] Process package list for 'iOS' complete.
+[21:37:07.355][INFO] Process version list for 'iOS' complete.
+[21:37:07.356][INFO] Process readonly list for 'iOS' complete.
+[21:37:07.360][INFO] Build AssetBundles for 'iOS' success.
+[21:37:07.360][INFO] Start build AssetBundles for 'Android'...
+[21:37:07.360][INFO] Working path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Working/android/'.
+[21:37:07.361][INFO] Output package path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Package/1_0_2/android/'.
+[21:37:07.362][INFO] Output full path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Full/1_0_2/android/'.
+[21:37:07.364][INFO] Output packed path is 'E:/ZheHuaUnityEngine/Assets/StreamingAssets/Packed/1_0_2/android/'.
+[21:37:07.365][INFO] Unity start build AssetBundles for 'Android'...
+[21:37:11.768][INFO] Unity build AssetBundles for 'Android' complete.
+[21:37:11.774][INFO] Start process 'lua' for 'Android'...
+[21:37:11.777][INFO] Process 'lua' for 'Android' complete.
+[21:37:11.778][INFO] Process package list for 'Android' complete.
+[21:37:11.792][INFO] Process version list for 'Android' complete.
+[21:37:11.794][INFO] Process readonly list for 'Android' complete.
+[21:37:11.799][INFO] Build AssetBundles for 'Android' success.
+[21:37:11.803][INFO] Build AssetBundles for selected build targets complete.

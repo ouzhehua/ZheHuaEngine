@@ -1,7 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <UnityGameFramework>
   <AssetBundleCollection>
-    <AssetBundles />
-    <Assets />
+    <AssetBundles>
+      <AssetBundle Name="lua" LoadType="0" Packed="False" />
+    </AssetBundles>
+    <Assets>
+      <Asset Guid="0426458dca0375446b19b25f7c43033b" AssetBundleName="lua" />
+      <Asset Guid="0be100ab54ca7ee47a95f19ffb7a0fea" AssetBundleName="lua" />
+      <Asset Guid="1b44cda60d89bbb4da3ab21b26285a93" AssetBundleName="lua" />
+      <Asset Guid="2b648a28b111b9e45a236b8776b9406f" AssetBundleName="lua" />
+      <Asset Guid="3804c402a7d556e45bd5487e8e25ca92" AssetBundleName="lua" />
+      <Asset Guid="76c98296ff516ea48a86350215fa7895" AssetBundleName="lua" />
+      <Asset Guid="8f5e64aa07c71f643bcf29f18536dc86" AssetBundleName="lua" />
+      <Asset Guid="ea4ba117f0e0e4242851747558048827" AssetBundleName="lua" />
+    </Assets>
   </AssetBundleCollection>
 </UnityGameFramework>

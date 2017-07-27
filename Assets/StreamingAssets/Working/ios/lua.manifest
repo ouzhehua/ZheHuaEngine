@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 3871576682
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 16480430ee04fe3af5f3207d4fc3b906
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Main/LuaTemp/HotFixRequirer.lua.bytes
+- Assets/Main/LuaTemp/Utils.lua.bytes
+- Assets/Main/LuaTemp/UI/Temp.lua.bytes
+- Assets/Main/LuaTemp/TestRotate.lua.bytes
+- Assets/Main/LuaTemp/GlobalDefine.lua.bytes
+- Assets/Main/LuaTemp/HotFix/Temp.lua.bytes
+- Assets/Main/LuaTemp/Main.lua.bytes
+- Assets/Main/LuaTemp/class.lua.bytes
+Dependencies: []

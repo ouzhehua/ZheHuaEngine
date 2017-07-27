@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UnityGameFramework>
+  <BuildReport>
+    <Summary>
+      <ProductName>ZheHuaEngine</ProductName>
+      <CompanyName>DefaultCompany</CompanyName>
+      <GameIdentifier>com.zhehua.engine</GameIdentifier>
+      <ApplicableGameVersion>1.0</ApplicableGameVersion>
+      <InternalResourceVersion>2</InternalResourceVersion>
+      <UnityVersion>2017.1.0f3</UnityVersion>
+      <WindowsSelected>True</WindowsSelected>
+      <MacOSXSelected>False</MacOSXSelected>
+      <IOSSelected>True</IOSSelected>
+      <AndroidSelected>True</AndroidSelected>
+      <WindowsStoreSelected>False</WindowsStoreSelected>
+      <ZipSelected>True</ZipSelected>
+      <RecordScatteredDependencyAssetsSelected>False</RecordScatteredDependencyAssetsSelected>
+      <BuildAssetBundleOptions>272</BuildAssetBundleOptions>
+    </Summary>
+    <AssetBundles Count="1">
+      <AssetBundle Name="lua" LoadType="0" Packed="False">
+        <Assets Count="8">
+          <Asset Guid="0426458dca0375446b19b25f7c43033b" Name="Assets/Main/LuaTemp/class.lua.bytes" Length="1879" HashCode="-248278743" />
+          <Asset Guid="0be100ab54ca7ee47a95f19ffb7a0fea" Name="Assets/Main/LuaTemp/Main.lua.bytes" Length="229" HashCode="-1077008402" />
+          <Asset Guid="1b44cda60d89bbb4da3ab21b26285a93" Name="Assets/Main/LuaTemp/UI/Temp.lua.bytes" Length="0" HashCode="0" />
+          <Asset Guid="2b648a28b111b9e45a236b8776b9406f" Name="Assets/Main/LuaTemp/GlobalDefine.lua.bytes" Length="941" HashCode="-1609223734" />
+          <Asset Guid="3804c402a7d556e45bd5487e8e25ca92" Name="Assets/Main/LuaTemp/HotFixRequirer.lua.bytes" Length="54" HashCode="-1887067074" />
+          <Asset Guid="76c98296ff516ea48a86350215fa7895" Name="Assets/Main/LuaTemp/Utils.lua.bytes" Length="5016" HashCode="2029917595" />
+          <Asset Guid="8f5e64aa07c71f643bcf29f18536dc86" Name="Assets/Main/LuaTemp/HotFix/Temp.lua.bytes" Length="0" HashCode="0" />
+          <Asset Guid="ea4ba117f0e0e4242851747558048827" Name="Assets/Main/LuaTemp/TestRotate.lua.bytes" Length="296" HashCode="628704457" />
+        </Assets>
+        <Codes>
+          <StandaloneWindows Length="5045" HashCode="1325611526" ZipLength="4258" ZipHashCode="-2011733080" />
+          <iOS Length="5046" HashCode="637487885" ZipLength="4260" ZipHashCode="818060333" />
+          <Android Length="5046" HashCode="1034114918" ZipLength="4260" ZipHashCode="-856560076" />
+        </Codes>
+      </AssetBundle>
+    </AssetBundles>
+  </BuildReport>
+</UnityGameFramework>
