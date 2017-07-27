@@ -2163,6 +2163,7 @@ public class UICamera : MonoBehaviour
 		// Propagate the updates to the other mouse buttons
 		for (int i = 1; i < 3; ++i)
 		{
+            mMouse[i].lastPos = mMouse[i].pos;	//zhehua fix ngui bug
 			mMouse[i].pos = currentTouch.pos;
 			mMouse[i].delta = currentTouch.delta;
 		}
@@ -2317,6 +2318,7 @@ public class UICamera : MonoBehaviour
 			bool pressed = (phase == TouchPhase.Began) || currentTouch.touchBegan;
 			bool unpressed = (phase == TouchPhase.Canceled) || (phase == TouchPhase.Ended);
 			currentTouch.delta = position - currentTouch.pos;
+            currentTouch.lastPos = currentTouch.pos;	//zhehua fix ngui bug
 			currentTouch.pos = position;
 			currentKey = KeyCode.None;
 
@@ -2386,6 +2388,7 @@ public class UICamera : MonoBehaviour
 
 			Vector2 pos = Input.mousePosition;
 			currentTouch.delta = pos - currentTouch.pos;
+            currentTouch.lastPos = currentTouch.pos;	//zhehua fix ngui bug
 			currentTouch.pos = pos;
 
 			// Raycast into the screen
