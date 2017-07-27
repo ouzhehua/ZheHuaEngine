@@ -1564,6 +1564,12 @@ public class UIPanel : UIRect
 		for (int i = 0; i < drawCalls.Count; ++i)
 		{
 			UIDrawCall dc = drawCalls[i];
+            //add by zhehua
+            if (dc == null || dc.cachedTransform == null)
+            {
+                //Debug.LogError("UIPanel : " + gameObject.name + " has abnormal dc");
+                continue;
+            }
 
 			Transform t = dc.cachedTransform;
 			t.position = pos;
