@@ -46,7 +46,7 @@ namespace UnityGameFramework.Runtime
                 m_LastWindowY = m_SettingComponent.GetFloat("Debugger.Window.Y", DefaultWindowRect.y);
                 m_LastWindowWidth = m_SettingComponent.GetFloat("Debugger.Window.Width", DefaultWindowRect.width);
                 m_LastWindowHeight = m_SettingComponent.GetFloat("Debugger.Window.Height", DefaultWindowRect.height);
-                m_DebuggerComponent.WindowScale = m_LastWindowScale = m_SettingComponent.GetFloat("Debugger.Window.Scale", DefaultWindowScale);
+                m_DebuggerComponent.WindowScale = m_LastWindowScale = m_SettingComponent.GetFloat("Debugger.Window.Scale", DefaultWindowScaleW);
                 m_DebuggerComponent.IconRect = new Rect(m_LastIconX, m_LastIconY, DefaultIconRect.width, DefaultIconRect.height);
                 m_DebuggerComponent.WindowRect = new Rect(m_LastWindowX, m_LastWindowY, m_LastWindowWidth, m_LastWindowHeight);
             }
@@ -175,7 +175,7 @@ namespace UnityGameFramework.Runtime
                     {
                         m_DebuggerComponent.IconRect = DefaultIconRect;
                         m_DebuggerComponent.WindowRect = DefaultWindowRect;
-                        m_DebuggerComponent.WindowScale = DefaultWindowScale;
+                        m_DebuggerComponent.WindowScale = DefaultWindowScaleW;
                     }
                 }
                 GUILayout.EndVertical();

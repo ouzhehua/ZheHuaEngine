@@ -19,33 +19,29 @@ namespace UnityGameFramework.Runtime
     [AddComponentMenu("Game Framework/Debugger")]
     public sealed partial class DebuggerComponent : GameFrameworkComponent
     {
-        /*
-       3rd-change:chengfeng
-       start
-       */
         /// <summary>
         /// 默认调试器漂浮框大小。
         /// </summary>
-        internal static readonly Rect DefaultIconRect = new Rect(10f, 10f, Screen.width *(60f/640f), Screen.height*(60f/480f));
+        internal static readonly Rect DefaultIconRect = new Rect(10f, 10f, 60f, 60f);
 
         /// <summary>
         /// 默认调试器窗口大小。
         /// </summary>
-        internal static readonly Rect DefaultWindowRect = new Rect(10f, 10f, Screen.width - 20, Screen.height - 20);
-        /*
-       3rd-change:chengfeng
-       end
-       */
+        internal static readonly Rect DefaultWindowRect = new Rect(0f, 0f, 640f, 480f);
+
         /// <summary>
         /// 默认调试器窗口缩放比例。
         /// </summary>
-        internal static readonly float DefaultWindowScale = 1f;
+        internal static readonly float DefaultWindowScaleW = Screen.width / 640f;
+        internal static readonly float DefaultWindowScaleH = Screen.height / 480f;
+
 
         private IDebuggerManager m_DebuggerManager = null;
         private Rect m_DragRect = new Rect(0f, 0f, float.MaxValue, 25f);
         private Rect m_IconRect = DefaultIconRect;
         private Rect m_WindowRect = DefaultWindowRect;
-        private float m_WindowScale = DefaultWindowScale;
+        private float m_WindowScaleH = DefaultWindowScaleH;
+        private float m_WindowScaleW = DefaultWindowScaleW;
 
         [SerializeField]
         private GUISkin m_Skin = null;
@@ -160,11 +156,11 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return m_WindowScale;
+                return m_WindowScaleW;
             }
             set
             {
-                m_WindowScale = value;
+                m_WindowScaleW = value;
             }
         }
 
@@ -174,6 +170,7 @@ namespace UnityGameFramework.Runtime
         protected override void Awake()
         {
             base.Awake();
+
             m_DebuggerManager = GameFrameworkEntry.GetModule<IDebuggerManager>();
             if (m_DebuggerManager == null)
             {
@@ -246,7 +243,7 @@ namespace UnityGameFramework.Runtime
             Matrix4x4 cachedMatrix = GUI.matrix;
 
             GUI.skin = m_Skin;
-            GUI.matrix = Matrix4x4.Scale(new Vector3(m_WindowScale, m_WindowScale, 1f));
+            GUI.matrix = Matrix4x4.Scale(new Vector3(m_WindowScaleW, m_WindowScaleH, 1f));
 
             if (m_ShowFullWindow)
             {
@@ -355,32 +352,12 @@ namespace UnityGameFramework.Runtime
             {
                 color = m_ConsoleWindow.GetLogStringColor(LogType.Log);
             }
-            string title = string.Format("<color=#{0}{1}{2}{3}><b>{4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_FpsCounter.CurrentFps.ToString("F2"));
 
-            /*
-            3rd-change:chengfeng
-            start
-            */
-            if (Screen.width > Screen.height)
+            string title = string.Format("<color=#{0}{1}{2}{3}><b>FPS: {4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_FpsCounter.CurrentFps.ToString("F2"));
+            if (GUILayout.Button(title, GUILayout.Width(100f), GUILayout.Height(40f)))
             {
-                if (GUILayout.Button(title, GUILayout.Width(Screen.width / 10f), GUILayout.Height(Screen.height / 12f)))
-                {
-                    m_ShowFullWindow = true;
-                }
+                m_ShowFullWindow = true;
             }
-            else
-            {
-                if (GUILayout.Button(title, GUILayout.Width(Screen.height / 10f), GUILayout.Height(Screen.width / 12f)))
-                {
-                    m_ShowFullWindow = true;
-                }
-            }
-            /*
-            3rd-change:chengfeng
-            end
-            */
-            
-            
         }
     }
 }
