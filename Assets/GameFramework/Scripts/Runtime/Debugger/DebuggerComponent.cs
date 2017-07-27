@@ -19,16 +19,23 @@ namespace UnityGameFramework.Runtime
     [AddComponentMenu("Game Framework/Debugger")]
     public sealed partial class DebuggerComponent : GameFrameworkComponent
     {
+        /*
+       3rd-change:chengfeng
+       start
+       */
         /// <summary>
         /// 默认调试器漂浮框大小。
         /// </summary>
-        internal static readonly Rect DefaultIconRect = new Rect(10f, 10f, 60f, 60f);
+        internal static readonly Rect DefaultIconRect = new Rect(10f, 10f, Screen.width *(60f/640f), Screen.height*(60f/480f));
 
         /// <summary>
         /// 默认调试器窗口大小。
         /// </summary>
-        internal static readonly Rect DefaultWindowRect = new Rect(10f, 10f, 640f, 480f);
-
+        internal static readonly Rect DefaultWindowRect = new Rect(10f, 10f, Screen.width - 20, Screen.height - 20);
+        /*
+       3rd-change:chengfeng
+       end
+       */
         /// <summary>
         /// 默认调试器窗口缩放比例。
         /// </summary>
@@ -167,7 +174,6 @@ namespace UnityGameFramework.Runtime
         protected override void Awake()
         {
             base.Awake();
-
             m_DebuggerManager = GameFrameworkEntry.GetModule<IDebuggerManager>();
             if (m_DebuggerManager == null)
             {
@@ -349,12 +355,32 @@ namespace UnityGameFramework.Runtime
             {
                 color = m_ConsoleWindow.GetLogStringColor(LogType.Log);
             }
+            string title = string.Format("<color=#{0}{1}{2}{3}><b>{4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_FpsCounter.CurrentFps.ToString("F2"));
 
-            string title = string.Format("<color=#{0}{1}{2}{3}><b>FPS: {4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_FpsCounter.CurrentFps.ToString("F2"));
-            if (GUILayout.Button(title, GUILayout.Width(100f), GUILayout.Height(40f)))
+            /*
+            3rd-change:chengfeng
+            start
+            */
+            if (Screen.width > Screen.height)
             {
-                m_ShowFullWindow = true;
+                if (GUILayout.Button(title, GUILayout.Width(Screen.width / 10f), GUILayout.Height(Screen.height / 12f)))
+                {
+                    m_ShowFullWindow = true;
+                }
             }
+            else
+            {
+                if (GUILayout.Button(title, GUILayout.Width(Screen.height / 10f), GUILayout.Height(Screen.width / 12f)))
+                {
+                    m_ShowFullWindow = true;
+                }
+            }
+            /*
+            3rd-change:chengfeng
+            end
+            */
+            
+            
         }
     }
 }
