@@ -33,6 +33,14 @@ public class UIEventTrigger : MonoBehaviour
 	/// Whether the collider is enabled and the widget can be interacted with.
 	/// </summary>
 
+    public Vector2 dragDelta
+    {
+        private set;
+        get;
+    }
+ 
+
+
 	public bool isColliderEnabled
 	{
 		get
@@ -123,6 +131,7 @@ public class UIEventTrigger : MonoBehaviour
 	{
 		if (current != null) return;
 		current = this;
+        current.dragDelta = delta;
 		EventDelegate.Execute(onDrag);
 		current = null;
 	}
