@@ -121,8 +121,9 @@ public class TypewriterEffect : MonoBehaviour
 		}
 	}
 
-	void OnEnable () { mReset = true; mActive = true; }
-	void OnDisable () { Finish(); }
+    //这两个函数不用了 by zhehua
+	//void OnEnable () { mReset = true; mActive = true; }
+	//void OnDisable () { Finish(); }
 
 	void Update ()
 	{
@@ -135,6 +136,7 @@ public class TypewriterEffect : MonoBehaviour
 			mLabel = GetComponent<UILabel>();
 			mFullText = mLabel.processedText;
 			mFade.Clear();
+            mNextChar = 0;
 
 			if (keepFullDimensions && scrollView != null) scrollView.UpdatePosition();
 		}
