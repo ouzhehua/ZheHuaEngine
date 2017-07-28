@@ -142,7 +142,7 @@ public class SpriteCheckToolsEditor : Editor
 public class SpriteCheckTools : MonoBehaviour
 {
     [HideInInspector]
-    public string sourceRootPath = Application.dataPath + "/Main/UI/Atlas";
+    public string sourceRootPath;
 
     private List<UIAtlas> _usefulAtlas = new List<UIAtlas>();
     public List<UIAtlas> usefulAtlas { get { return _usefulAtlas; } }
@@ -158,6 +158,7 @@ public class SpriteCheckTools : MonoBehaviour
 
     void Awake()
     {
+        sourceRootPath = Application.dataPath + "/Main/UI/Atlas";
         if (Application.isPlaying)
         {
             Debug.LogError("操你妈！谁让你把我带到游戏里的，我只是个监测工具，快删了 " + gameObject.name);
