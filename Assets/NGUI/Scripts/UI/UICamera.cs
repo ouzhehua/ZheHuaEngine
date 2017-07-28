@@ -449,6 +449,7 @@ public class UICamera : MonoBehaviour
 
 	static bool mDisableController = false;
 	static Vector2 mLastPos = Vector2.zero;
+    static int mLastCameraIndex = 0;
 
 	/// <summary>
 	/// Position of the last touch (or mouse) event.
@@ -1470,6 +1471,22 @@ public class UICamera : MonoBehaviour
 		mLastPos = touch.pos;
 	}
 
+    //add by zhehua
+    static public void PostEventToNextCamera(string EventType = "OnClick")
+    {
+        if (!Raycast(currentTouch.pos, mLastCameraIndex + 1)) mRayHitObject = fallThrough;
+        if (mRayHitObject == null) mRayHitObject = mGenericHandler;
+        currentTouch.last = currentTouch.current;
+        currentTouch.current = mRayHitObject;
+        mLastPos = currentTouch.pos;
+
+        if (EventType == "OnClick")
+        {
+            if (onClick != null) onClick(currentTouch.current);
+            Notify(currentTouch.current, "OnClick", null);
+        }
+    }
+
 #if !UNITY_4_7
 	static RaycastHit[] mRayHits;
 	static Collider2D[] mOverlap;
@@ -1478,10 +1495,12 @@ public class UICamera : MonoBehaviour
 	/// <summary>
 	/// Returns the object under the specified position.
 	/// </summary>
-
-	static public bool Raycast (Vector3 inPos)
+    static public bool Raycast(Vector3 inPos, int beginIndex = 0)
 	{
-		for (int i = 0; i < list.size; ++i)
+        //add by zhehua
+        if (beginIndex >= list.size) return false;
+
+        for (int i = beginIndex; i < list.size; ++i)
 		{
 			UICamera cam = list.buffer[i];
 			
