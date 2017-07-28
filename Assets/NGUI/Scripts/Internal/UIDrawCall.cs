@@ -384,24 +384,32 @@ public class UIDrawCall : MonoBehaviour
 		const string textureClip = " (TextureClip)";
 		shaderName = shaderName.Replace(textureClip, "");
 
-		if (panel != null && panel.clipping == Clipping.TextureMask)
-		{
-			mTextureClip = true;
-			shader = Shader.Find("Hidden/" + shaderName + textureClip);
-		}
-		else if (mClipCount != 0)
-		{
-			shader = Shader.Find("Hidden/" + shaderName + " " + mClipCount);
-			if (shader == null) shader = Shader.Find(shaderName + " " + mClipCount);
+        if (panel != null && panel.clipping == Clipping.TextureMask)
+        {
+            mTextureClip = true;
 
-			// Legacy functionality
-			if (shader == null && mClipCount == 1)
-			{
-				mLegacyShader = true;
-				shader = Shader.Find(shaderName + soft);
-			}
-		}
-		else shader = Shader.Find(shaderName);
+            if (mClipCount > 1)
+            {
+                shader = Shader.Find("Hidden/" + shaderName + textureClip + " " + (mClipCount - 1));
+            }
+            else
+            {
+                shader = Shader.Find("Hidden/" + shaderName + textureClip);
+            }
+        }
+        else if (mClipCount != 0)
+        {
+            shader = Shader.Find("Hidden/" + shaderName + " " + mClipCount);
+            if (shader == null) shader = Shader.Find(shaderName + " " + mClipCount);
+
+            // Legacy functionality
+            if (shader == null && mClipCount == 1)
+            {
+                mLegacyShader = true;
+                shader = Shader.Find(shaderName + soft);
+            }
+        }
+        else shader = Shader.Find(shaderName);
 
 		// Always fallback to the default shader
 		if (shader == null) shader = Shader.Find("Unlit/Transparent Colored");
@@ -718,14 +726,51 @@ public class UIDrawCall : MonoBehaviour
 
 		if (mTextureClip)
 		{
-			Vector4 cr = panel.drawCallClipRange;
-			Vector2 soft = panel.clipSoftness;
+            //change by zhehua
+            if (mClipCount > 1)
+            {
+                UIPanel currentPanel = panel;
 
-			Vector2 sharpness = new Vector2(1000.0f, 1000.0f);
-			if (soft.x > 0f) sharpness.x = cr.z / soft.x;
-			if (soft.y > 0f) sharpness.y = cr.w / soft.y;
+                for (int i = 0; currentPanel != null; )
+                {
+                    if (currentPanel.hasClipping)
+                    {
+                        float angle = 0f;
+                        Vector4 cr = currentPanel.drawCallClipRange;
 
-			mDynamicMat.SetVector(ClipRange[0], new Vector4(-cr.x / cr.z, -cr.y / cr.w, 1f / cr.z, 1f / cr.w));
+                        // Clipping regions past the first one need additional math
+                        if (currentPanel != panel)
+                        {
+                            Vector3 pos = currentPanel.cachedTransform.InverseTransformPoint(panel.cachedTransform.position);
+                            cr.x -= pos.x;
+                            cr.y -= pos.y;
+
+                            Vector3 v0 = panel.cachedTransform.rotation.eulerAngles;
+                            Vector3 v1 = currentPanel.cachedTransform.rotation.eulerAngles;
+                            Vector3 diff = v1 - v0;
+
+                            diff.x = NGUIMath.WrapAngle(diff.x);
+                            diff.y = NGUIMath.WrapAngle(diff.y);
+                            diff.z = NGUIMath.WrapAngle(diff.z);
+
+                            if (Mathf.Abs(diff.x) > 0.001f || Mathf.Abs(diff.y) > 0.001f)
+                                Debug.LogWarning("Panel can only be clipped properly if X and Y rotation is left at 0", panel);
+
+                            angle = diff.z;
+                        }
+
+                        // Pass the clipping parameters to the shader
+                        SetClipping(i++, cr, currentPanel.clipSoftness, angle);
+                    }
+                    currentPanel = currentPanel.parentPanel;
+                }
+            }
+            else
+            {
+                Vector4 cr = panel.drawCallClipRange;
+                mDynamicMat.SetVector(ClipRange[0], new Vector4(-cr.x / cr.z, -cr.y / cr.w, 1f / cr.z, 1f / cr.w));
+            }
+			
 			mDynamicMat.SetTexture("_ClipTex", clipTexture);
 		}
 		else if (!mLegacyShader)

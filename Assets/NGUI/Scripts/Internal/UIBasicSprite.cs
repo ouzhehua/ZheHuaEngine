@@ -40,6 +40,11 @@ public abstract class UIBasicSprite : UIWidget
 		Vertically,
 		Both,
 	}
+    public enum EffectType
+    {
+        None,
+        Grayscale
+    }
 
 	[HideInInspector][SerializeField] protected Type mType = Type.Simple;
 	[HideInInspector][SerializeField] protected FillDirection mFillDirection = FillDirection.Radial360;
@@ -50,6 +55,11 @@ public abstract class UIBasicSprite : UIWidget
 	[HideInInspector][SerializeField] protected bool mApplyGradient = false;
 	[HideInInspector][SerializeField] protected Color mGradientTop = Color.white;
 	[HideInInspector][SerializeField] protected Color mGradientBottom = new Color(0.7f, 0.7f, 0.7f);
+
+    // add by zhehua
+    [HideInInspector][SerializeField]
+    protected EffectType mEffectType = EffectType.None;
+
 
 	// Cached to avoid allocations
 	[System.NonSerialized] Rect mInnerUV = new Rect();
@@ -166,6 +176,41 @@ public abstract class UIBasicSprite : UIWidget
 			}
 		}
 	}
+
+    // add by zhehua
+    public EffectType effectType
+    {
+        get
+        {
+            return mEffectType;
+        }
+        set
+        {
+            if (mEffectType != value)
+            {
+                mEffectType = value;
+                UpdateEffectType();
+                MarkAsChanged();
+            }
+        }
+    }
+    protected virtual void UpdateEffectType()
+    {
+        Debug.Log("switch to " + mEffectType);
+    }
+    protected string GetShaderNameByEffectType(EffectType effectType)
+    {
+        switch (effectType)
+        {
+            case EffectType.None:
+                return "Unlit/Transparent Colored";
+            case EffectType.Grayscale:
+                return "Unlit/Transparent Colored (GrayScale)";
+            default:
+                Debug.LogError("UIBasicSprite may be you have new type without case : " + effectType);
+                return null;
+        }
+    }
 
 	/// <summary>
 	/// Minimum allowed width for this widget.

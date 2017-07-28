@@ -94,6 +94,23 @@ public class UIBasicSpriteEditor : UIWidgetInspector
 			EditorGUI.EndDisabledGroup();
 			GUILayout.EndHorizontal();
 		}
+
+        // EffectType add by zhehua
+        UIBasicSprite self = (UIBasicSprite)target;
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Effect Type", GUILayout.MaxWidth(75f), GUILayout.MinWidth(20f));
+        self.effectType = (UIBasicSprite.EffectType)EditorGUILayout.EnumPopup(self.effectType);
+        GUILayout.EndHorizontal();
+
+        if (self.effectType == UIBasicSprite.EffectType.None)
+        {
+            //NGUIEditorTools.DrawProperty("EffectType", serializedObject, "mFlip");
+        }
+        else if (self.effectType == UIBasicSprite.EffectType.Grayscale)
+        {
+
+        }
+
 		base.DrawCustomProperties();
 	}
 }

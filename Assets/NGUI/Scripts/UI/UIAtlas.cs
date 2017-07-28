@@ -98,6 +98,71 @@ public class UIAtlas : MonoBehaviour
 		}
 	}
 
+    // add by zhehua
+    private Dictionary<string, Material> mEffectMatDic;
+    public Dictionary<string, Material> effectMatDic { get { return mEffectMatDic; } }
+    public void AddEffectMaterial(string shaderName)
+    {
+        if (string.IsNullOrEmpty(shaderName))
+        {
+            return;
+        }
+
+        if (mEffectMatDic == null)
+        {
+            mEffectMatDic = new Dictionary<string, Material>();
+        }
+
+        if (!mEffectMatDic.ContainsKey(shaderName))
+        {
+            Shader shader = Shader.Find(shaderName);
+            if (shader != null)
+            {
+                Material temp = new Material(shader);
+                temp.name = shaderName;
+                Texture originTexture = spriteMaterial.GetTexture("_MainTex");
+                temp.SetTexture("_MainTex", originTexture);
+                mEffectMatDic.Add(shaderName, temp);
+            }
+            else
+            {
+                Debug.LogError("Without " + shaderName);
+            }
+        }
+
+        mPMA = -1;
+        MarkAsChanged();
+    }
+    public Material GetEffectMaterial(string shaderName)
+    {
+        if (mEffectMatDic == null || !mEffectMatDic.ContainsKey(shaderName))
+        {
+            AddEffectMaterial(shaderName);
+        }
+
+        if (mEffectMatDic[shaderName] == null)
+        {
+            mEffectMatDic.Remove(shaderName);
+            AddEffectMaterial(shaderName);
+        }
+
+        return mEffectMatDic[shaderName];
+    }
+    public void DestroyAllEffectMaterials()
+    {
+        if (mEffectMatDic != null)
+        {
+            foreach (string key in mEffectMatDic.Keys)
+            {
+                if (mEffectMatDic[key] != null)
+                {
+                    DestroyImmediate(mEffectMatDic[key]);
+                }
+            }
+            mEffectMatDic.Clear();
+        }
+    }
+
 	/// <summary>
 	/// Whether the atlas is using a premultiplied alpha material.
 	/// </summary>

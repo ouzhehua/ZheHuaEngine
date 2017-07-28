@@ -67,7 +67,33 @@ public class UISpriteInspector : UIBasicSpriteEditor
 		SerializedProperty sp = serializedObject.FindProperty("mSpriteName");
 		NGUIEditorTools.DrawAdvancedSpriteField(atlas.objectReferenceValue as UIAtlas, sp.stringValue, SelectSprite, false);
 
-		NGUIEditorTools.DrawProperty("Material", serializedObject, "mMat");
+        //change by zhehua
+		//NGUIEditorTools.DrawProperty("Material", serializedObject, "mMat");
+        if (atlas != null)
+        {
+            UIAtlas atl = atlas.objectReferenceValue as UIAtlas;
+            if (atl != null)
+            {
+                if (atl.spriteMaterial != null)
+                {
+                    EditorGUILayout.LabelField("Sprite Material Name : " + atl.spriteMaterial.name, GUILayout.MinWidth(100f));
+                }
+                int effectMatDicCount = (atl.effectMatDic == null) ? 0 : atl.effectMatDic.Count;
+                EditorGUILayout.LabelField("Effect Material Count : " + effectMatDicCount, GUILayout.MinWidth(100f));
+                if (effectMatDicCount > 0)
+                {
+                    foreach (string key in atl.effectMatDic.Keys)
+                    {
+                        if (atl.effectMatDic[key] == null)
+                        {
+                            atl.DestroyAllEffectMaterials();
+                            break;
+                        }
+                        EditorGUILayout.LabelField("        " + atl.effectMatDic[key].name, GUILayout.MinWidth(100f));
+                    }
+                }
+            }
+        }
 		return true;
 	}
 

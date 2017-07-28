@@ -51,7 +51,18 @@ public class UISprite : UIBasicSprite
 		{
 			var mat = base.material;
 			if (mat != null) return mat;
-			return (mAtlas != null ? mAtlas.spriteMaterial : null);
+
+            //change by zhehua
+			//return (mAtlas != null ? mAtlas.spriteMaterial : null);
+            string currentShaderName = GetShaderNameByEffectType(mEffectType);
+            if (mEffectType == EffectType.None || string.IsNullOrEmpty(currentShaderName))
+            {
+                return (mAtlas != null) ? mAtlas.spriteMaterial : null;
+            }
+            else
+            {
+                return (mAtlas != null) ? mAtlas.GetEffectMaterial(currentShaderName) : null;
+            }
 		}
 		set
 		{
@@ -528,4 +539,16 @@ public class UISprite : UIBasicSprite
 		if (onPostFill != null)
 			onPostFill(this, offset, verts, uvs, cols);
 	}
+
+    protected override void UpdateEffectType()
+    {
+        if (mEffectType != EffectType.None)
+        {
+            mAtlas.AddEffectMaterial(GetShaderNameByEffectType(mEffectType));
+        }
+        else
+        {
+            mAtlas.MarkAsChanged();
+        }
+    }
 }

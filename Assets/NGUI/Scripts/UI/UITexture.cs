@@ -365,4 +365,17 @@ public class UITexture : UIBasicSprite
 		if (onPostFill != null)
 			onPostFill(this, offset, verts, uvs, cols);
 	}
+
+    protected override void UpdateEffectType()
+    {
+        string shaderName = GetShaderNameByEffectType(mEffectType);
+        if (string.IsNullOrEmpty(shaderName))
+        {
+            Debug.LogError("UITexture can not use null shader name");
+        }
+        else
+        {
+            shader = Shader.Find(shaderName);
+        }
+    }
 }
