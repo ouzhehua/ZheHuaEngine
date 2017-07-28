@@ -50,7 +50,7 @@ public class SpriteCheckToolsEditor : Editor
                     {
                         int index = i * 3 + j;
                         if (index < usefulAtlasCount)
-                            EditorGUILayout.ObjectField(self.usefulAtlas[index], typeof(GameObject), GUILayout.Width(110));
+                            EditorGUILayout.ObjectField(self.usefulAtlas[index], typeof(GameObject), false, GUILayout.Width(110));
                     }
                     EditorGUILayout.EndHorizontal();
                 }
@@ -66,8 +66,8 @@ public class SpriteCheckToolsEditor : Editor
                     for (int i = 0; i < self.todoList.Count; i++)
                     {
                         EditorGUILayout.BeginHorizontal();
-                        
-                        EditorGUILayout.ObjectField(self.todoList[i].gameObject, typeof(GameObject), GUILayout.Width(110));
+
+                        EditorGUILayout.ObjectField(self.todoList[i].gameObject, typeof(GameObject), true, GUILayout.Width(110));
                         if (self.todoList[i].indexs.Count > 0)
                         {
                             EditorGUILayout.LabelField("------>", GUILayout.Width(50));

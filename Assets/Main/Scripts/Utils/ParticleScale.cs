@@ -49,8 +49,8 @@ public class ParticleScale : MonoBehaviour
         ParticleSystem[] particles = gameObject.GetComponentsInChildren<ParticleSystem>();
         for(int i = 0; i < particles.Length;i++)
         {
-            initialSizes.Add(particles[i].startSize);
-            initialSizes.Add(particles[i].startSpeed);
+            initialSizes.Add(particles[i].main.startSizeMultiplier);
+            initialSizes.Add(particles[i].main.startSpeedMultiplier);
             //initialSizes.Add(particle.startRotation);
             //initialSizes.Add(particle.gravityModifier);
             ParticleSystemRenderer renderer = particles[i].GetComponent<ParticleSystemRenderer>();
@@ -80,8 +80,9 @@ public class ParticleScale : MonoBehaviour
         ParticleSystem[] particles = gameObject.GetComponentsInChildren<ParticleSystem>();
         for(int i = 0; i < particles.Length ;i++)
         {
-            particles[i].startSize = initialSizes[arrayIndex++] * ScaleSize;
-            particles[i].startSpeed = initialSizes[arrayIndex++] / ScaleSize;
+            ParticleSystem.MainModule particleMain = particles[i].main;
+            particleMain.startSizeMultiplier = initialSizes[arrayIndex++] * ScaleSize;
+            particleMain.startSpeedMultiplier = initialSizes[arrayIndex++] / ScaleSize;
             //particle.startRotation = initialSizes[arrayIndex++] * ScaleSize;
             //particle.gravityModifier = initialSizes[arrayIndex++] * ScaleSize;
             ParticleSystemRenderer renderer = particles[i].GetComponent<ParticleSystemRenderer>();
