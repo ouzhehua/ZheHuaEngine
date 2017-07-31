@@ -23,6 +23,7 @@ namespace UnityGameFramework.Editor
 
         private SerializedProperty m_EditorResourceMode = null;
         private SerializedProperty m_EditorLanguage = null;
+        private SerializedProperty m_DebugLogEnable = null;
         private SerializedProperty m_ZipHelperTypeName = null;
         private SerializedProperty m_JsonHelperTypeName = null;
         private SerializedProperty m_ProfilerHelperTypeName = null;
@@ -84,6 +85,19 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.EndVertical();
             }
             EditorGUI.EndDisabledGroup();
+
+            bool debugLogEnable = EditorGUILayout.Toggle("Debug Log Enable", m_DebugLogEnable.boolValue);
+            if (debugLogEnable != m_DebugLogEnable.boolValue)
+            {
+                if (EditorApplication.isPlaying)
+                {
+                    t.DebugLogEnable = debugLogEnable;
+                }
+                else
+                {
+                    m_DebugLogEnable.boolValue = debugLogEnable;
+                }
+            }
 
             int frameRate = EditorGUILayout.IntSlider("Frame Rate", m_FrameRate.intValue, 1, 120);
             if (frameRate != m_FrameRate.intValue)
@@ -164,6 +178,7 @@ namespace UnityGameFramework.Editor
             m_ZipHelperTypeName = serializedObject.FindProperty("m_ZipHelperTypeName");
             m_JsonHelperTypeName = serializedObject.FindProperty("m_JsonHelperTypeName");
             m_ProfilerHelperTypeName = serializedObject.FindProperty("m_ProfilerHelperTypeName");
+            m_DebugLogEnable = serializedObject.FindProperty("m_DebugLogEnable");
             m_FrameRate = serializedObject.FindProperty("m_FrameRate");
             m_GameSpeed = serializedObject.FindProperty("m_GameSpeed");
             m_RunInBackground = serializedObject.FindProperty("m_RunInBackground");

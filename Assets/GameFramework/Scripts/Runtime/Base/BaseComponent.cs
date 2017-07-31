@@ -33,6 +33,10 @@ namespace UnityGameFramework.Runtime
         [SerializeField]
         private Language m_EditorLanguage = Language.Unspecified;
 
+        //add by zhehua
+        [SerializeField]
+        private bool m_DebugLogEnable = true;
+
         [SerializeField]
         private string m_ZipHelperTypeName = "UnityGameFramework.Runtime.ZipHelper";
 
@@ -121,6 +125,21 @@ namespace UnityGameFramework.Runtime
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// 获取或设置游戏支持Log。
+        /// </summary>
+        public bool DebugLogEnable
+        {
+            get
+            {
+                return m_DebugLogEnable;
+            }
+            set
+            {
+                Debug.unityLogger.logEnabled = m_DebugLogEnable = value;
+            }
         }
 
         /// <summary>
@@ -238,6 +257,7 @@ namespace UnityGameFramework.Runtime
             Time.timeScale = m_GameSpeed;
             Application.runInBackground = m_RunInBackground;
             Screen.sleepTimeout = m_NeverSleep ? SleepTimeout.NeverSleep : SleepTimeout.SystemSetting;
+            Debug.unityLogger.logEnabled = m_DebugLogEnable;
 #else
             Log.Error("Game Framework only applies with Unity 5.3 and above, but current Unity version is {0}.", Application.unityVersion);
             GameEntry.Shutdown(ShutdownType.Quit);
