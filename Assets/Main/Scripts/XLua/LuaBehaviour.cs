@@ -39,14 +39,21 @@ public class LuaBehaviour : MonoBehaviour
         }
 
         _luaInstance = creatorFunc(LuaFilePath);
-        //_luaInstance.Set("self", this);
-        //_luaInstance.Set("MonoBehaviour", this);
+        
+        _luaInstance.Set("parent", this);
         _luaInstance.Set("gameObject", gameObject);
         _luaInstance.Set("transform", transform);
 
-        foreach (var injection in injections)
+        for (int i = 0; i < injections.Length; i++)
         {
-            _luaInstance.Set(injection.name, injection.value);
+            if (injections[i].name == "parent" || injections[i].name == "gameObject" || injections[i].name == "transform")
+            {
+                Debug.LogError(gameObject.name + "'s lua injections include " + injections[i].name);
+            }
+            else
+            {
+                _luaInstance.Set(injections[i].name, injections[i].value);
+            }
         }
 
         Action<LuaTable> luaAwake = _luaInstance.Get<Action<LuaTable>>("Awake");

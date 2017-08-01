@@ -44,6 +44,11 @@ public sealed partial class GameEntry : MonoBehaviour
     [SerializeField]
     private XLuaComponent m_XLua = null;
 
+    private void Awake()
+    {
+        s_Instance = this;
+    }
+
     public static bool IsAvailable
     {
         get

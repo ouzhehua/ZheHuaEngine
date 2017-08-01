@@ -77,6 +77,8 @@ namespace XLua.CSObjectWrap
 				
 				translator.DelayWrapLoader(typeof(UnityEngine.Debug), UnityEngineDebugWrap.__Register);
 				
+				translator.DelayWrapLoader(typeof(UISprite), UISpriteWrap.__Register);
+				
 				
 				translator.AddInterfaceBridgeCreator(typeof(System.Collections.IEnumerator), SystemCollectionsIEnumeratorBridge.__Create);
 				

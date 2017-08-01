@@ -10,7 +10,7 @@ function TestRotate:Update()
 end
 
 function TestRotate:Test()
-	Debug.LogError(self.gameObject.name)
+	-- Debug.LogError(self.gameObject.name)
 end
 
 return TestRotate
