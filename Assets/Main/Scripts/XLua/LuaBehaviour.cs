@@ -22,7 +22,7 @@ public class LuaBehaviour : MonoBehaviour
     private Action<LuaTable> luaOnDestroy;
 
     private LuaTable _luaInstance;
-    private static LuaCustomDelegate.StringReturnTable creatorFunc;
+    private static StringReturnTable creatorFunc;
 
     public LuaTable luaInstance
     {
@@ -35,7 +35,7 @@ public class LuaBehaviour : MonoBehaviour
         if (creatorFunc == null)
         {
             // function in lua
-            creatorFunc = XLuaComponent.instance.luaEnv.Global.Get<LuaCustomDelegate.StringReturnTable>("NewLuaInstanceByPath");
+            creatorFunc = XLuaComponent.instance.luaEnv.Global.Get<StringReturnTable>("NewLuaInstanceByPath");
         }
 
         _luaInstance = creatorFunc(LuaFilePath);

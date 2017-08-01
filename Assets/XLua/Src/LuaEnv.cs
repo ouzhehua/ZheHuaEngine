@@ -415,7 +415,11 @@ namespace XLua
 
                 // A non-wrapped Lua error (best interpreted as a string) - wrap it and throw it
                 if (err == null) err = "Unknown Lua Error";
-                throw new LuaException(err.ToString());
+
+                //add by zhehua
+                LuaTable debugTable = GameEntry.XLua.luaGlobal.Get<LuaTable>("debug");
+                XLua.VoidReturnString tracebackFunc = debugTable.Get<XLua.VoidReturnString>("traceback");
+                throw new LuaException(err.ToString() + tracebackFunc.Invoke());
 #if THREAD_SAFT || HOTFIX_ENABLE
             }
 #endif

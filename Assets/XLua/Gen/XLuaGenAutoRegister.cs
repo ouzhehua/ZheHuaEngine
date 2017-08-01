@@ -77,7 +77,25 @@ namespace XLua.CSObjectWrap
 				
 				translator.DelayWrapLoader(typeof(UnityEngine.Debug), UnityEngineDebugWrap.__Register);
 				
+				translator.DelayWrapLoader(typeof(LuaScriptUtil), LuaScriptUtilWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UIPanel), UIPanelWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UIWidget), UIWidgetWrap.__Register);
+				
 				translator.DelayWrapLoader(typeof(UISprite), UISpriteWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UITexture), UITextureWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UIButton), UIButtonWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UILabel), UILabelWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UIInput), UIInputWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UIEventTrigger), UIEventTriggerWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(NGUITools), NGUIToolsWrap.__Register);
 				
 				
 				translator.AddInterfaceBridgeCreator(typeof(System.Collections.IEnumerator), SystemCollectionsIEnumeratorBridge.__Create);

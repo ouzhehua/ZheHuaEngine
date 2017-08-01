@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class LuaScriptUtil
 {
-    #region Static Method
     public static void AddLuaFunctionDelegate(List<EventDelegate> list, XLua.LuaFunction func)
     {
         EventDelegate.Add(list, delegate()
@@ -19,6 +18,4 @@ public class LuaScriptUtil
             func.Call();
         });
     }
-
-    #endregion
 }

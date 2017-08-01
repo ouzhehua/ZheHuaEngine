@@ -19,8 +19,21 @@ Renderer = CS.UnityEngine.Renderer
 MeshRenderer = CS.UnityEngine.MeshRenderer
 SkinnedMeshRenderer = CS.UnityEngine.SkinnedMeshRenderer
 Screen = CS.UnityEngine.Screen;
-Debug = CS.UnityEngine.Debug
 Input = CS.UnityEngine.Input
 WaitForSeconds = CS.UnityEngine.WaitForSeconds
 Yield = CS.UnityEngine.Yield
 PlayerPrefs = CS.UnityEngine.PlayerPrefs
+
+Debug = {
+	Log = function(str)
+		CS.UnityEngine.Debug.Log(str..'\n'..debug.traceback())
+	end,
+
+	LogWarning = function(str)
+		CS.UnityEngine.Debug.LogWarning(str..'\n'..debug.traceback())
+	end,
+
+	LogError = function(str)
+		CS.UnityEngine.Debug.LogError(str..'\n'..debug.traceback())
+	end
+}

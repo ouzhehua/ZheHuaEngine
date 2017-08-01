@@ -43,7 +43,33 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp1()
+		public string __Gen_Delegate_Imp1()
+		{
+#if THREAD_SAFT || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int err_func =LuaAPI.load_error_func(L, errorFuncRef);
+                
+                
+                LuaAPI.lua_getref(L, luaReference);
+                
+                
+                int __gen_error = LuaAPI.lua_pcall(L, 0, 1, err_func);
+                if (__gen_error != 0)
+                    luaEnv.ThrowExceptionFromError(err_func - 1);
+                
+                
+                string __gen_ret = LuaAPI.lua_tostring(L, err_func + 1);
+                LuaAPI.lua_settop(L, err_func - 1);
+                return  __gen_ret;
+#if THREAD_SAFT || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
+		public void __Gen_Delegate_Imp2()
 		{
 #if THREAD_SAFT || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -69,7 +95,7 @@ namespace XLua
 #endif
 		}
         
-		public double __Gen_Delegate_Imp2(double p0, double p1)
+		public double __Gen_Delegate_Imp3(double p0, double p1)
 		{
 #if THREAD_SAFT || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -97,7 +123,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp3(string p0)
+		public void __Gen_Delegate_Imp4(string p0)
 		{
 #if THREAD_SAFT || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -124,7 +150,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp4(double p0)
+		public void __Gen_Delegate_Imp5(double p0)
 		{
 #if THREAD_SAFT || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -151,7 +177,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp5(XLua.LuaTable p0)
+		public void __Gen_Delegate_Imp6(XLua.LuaTable p0)
 		{
 #if THREAD_SAFT || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -187,39 +213,44 @@ namespace XLua
 		public override Delegate GetDelegateByType(Type type)
 		{
 		
-		    if (type == typeof(LuaCustomDelegate.StringReturnTable))
+		    if (type == typeof(XLua.StringReturnTable))
 			{
-			    return new LuaCustomDelegate.StringReturnTable(__Gen_Delegate_Imp0);
+			    return new XLua.StringReturnTable(__Gen_Delegate_Imp0);
+			}
+		
+		    if (type == typeof(XLua.VoidReturnString))
+			{
+			    return new XLua.VoidReturnString(__Gen_Delegate_Imp1);
 			}
 		
 		    if (type == typeof(System.Action))
 			{
-			    return new System.Action(__Gen_Delegate_Imp1);
+			    return new System.Action(__Gen_Delegate_Imp2);
 			}
 		
 		    if (type == typeof(UnityEngine.Events.UnityAction))
 			{
-			    return new UnityEngine.Events.UnityAction(__Gen_Delegate_Imp1);
+			    return new UnityEngine.Events.UnityAction(__Gen_Delegate_Imp2);
 			}
 		
 		    if (type == typeof(System.Func<double, double, double>))
 			{
-			    return new System.Func<double, double, double>(__Gen_Delegate_Imp2);
+			    return new System.Func<double, double, double>(__Gen_Delegate_Imp3);
 			}
 		
 		    if (type == typeof(System.Action<string>))
 			{
-			    return new System.Action<string>(__Gen_Delegate_Imp3);
+			    return new System.Action<string>(__Gen_Delegate_Imp4);
 			}
 		
 		    if (type == typeof(System.Action<double>))
 			{
-			    return new System.Action<double>(__Gen_Delegate_Imp4);
+			    return new System.Action<double>(__Gen_Delegate_Imp5);
 			}
 		
 		    if (type == typeof(System.Action<XLua.LuaTable>))
 			{
-			    return new System.Action<XLua.LuaTable>(__Gen_Delegate_Imp5);
+			    return new System.Action<XLua.LuaTable>(__Gen_Delegate_Imp6);
 			}
 		
 		    throw new InvalidCastException("This delegate must add to CSharpCallLua: " + type);

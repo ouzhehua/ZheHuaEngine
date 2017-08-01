@@ -32,12 +32,19 @@ public class XLuaComponent : MonoBehaviour
         get { return _luaEnv; }
     }
 
+    public LuaTable luaGlobal
+    {
+        get { return _luaEnv == null ? null : _luaEnv.Global; }
+    }
+
     void Awake()
     {
+        _instance = this;
+
         _luaEnv = new LuaEnv();
         _luaEnv.AddLoader(LuaLoader);
-        _instance = this;
         Debug.Log("XLuaComponent Awake");
+
 #if UNITY_EDITOR
         if (UseLocalFiles)
         {

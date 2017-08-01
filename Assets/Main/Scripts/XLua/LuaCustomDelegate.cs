@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-using XLua;
 
-//Custom Delegate
-public class LuaCustomDelegate
+namespace XLua
 {
+    //Custom Delegate
     [CSharpCallLua]
     public delegate LuaTable StringReturnTable(string luaClassPath);
+    [CSharpCallLua]
+    public delegate string VoidReturnString();
 }
