@@ -38,6 +38,8 @@ public static class XLuaGenConfig
 		typeof(Action<string>),
 		typeof(UnityEngine.Debug),
 
+        //EventDelegate
+        typeof(LuaScriptUtil),
         //NGUI
         typeof(UIPanel),
         typeof(UIWidget),
@@ -47,6 +49,7 @@ public static class XLuaGenConfig
         typeof(UILabel),
         typeof(UIInput),
         typeof(UIEventTrigger),
+        typeof(NGUITools),
 	};
 
     //C#静态调用Lua的配置（包括事件的原型），仅可以配delegate，interface

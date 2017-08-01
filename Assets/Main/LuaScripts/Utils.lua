@@ -12,11 +12,11 @@ function NewLuaInstanceByPath(luaClassPath)
 end
 
 function AddDelegate(delegateList, func)
-    LuaScriptUtil.Add_NGUI_Delegate(delegateList, func)
+    CS.LuaScriptUtil.AddLuaFunctionDelegate(delegateList, func)
 end
 
 function SetDelegate(delegateList, func)
-    LuaScriptUtil.Set_NGUI_Delegate(delegateList, func)
+    CS.LuaScriptUtil.SetLuaFunctionDelegate(delegateList, func)
 end
 
 function SetLayerRecursively(target, layerName)
