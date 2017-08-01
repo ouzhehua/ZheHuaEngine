@@ -536,7 +536,7 @@ namespace XLua
                 //add by zhehua
                 LuaTable debugTable = GameEntry.XLua.luaGlobal.Get<LuaTable>("debug");
                 XLua.VoidReturnString tracebackFunc = debugTable.Get<XLua.VoidReturnString>("traceback");
-                UnityEngine.Debug.Log(s + tracebackFunc.Invoke());
+                UnityEngine.Debug.Log(s + '\n' + tracebackFunc.Invoke());
                 return 0;
             }
             catch (System.Exception e)
