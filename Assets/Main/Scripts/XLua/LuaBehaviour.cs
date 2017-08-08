@@ -18,6 +18,8 @@ public class LuaBehaviour : MonoBehaviour
     public Injection[] injections;
 
     private Action<LuaTable> luaStart;
+    private Action<LuaTable> luaOnEnable;
+    private Action<LuaTable> luaOnDisable;
     private Action<LuaTable> luaUpdate;
     private Action<LuaTable> luaOnDestroy;
 
@@ -58,6 +60,8 @@ public class LuaBehaviour : MonoBehaviour
 
         Action<LuaTable> luaAwake = _luaInstance.Get<Action<LuaTable>>("Awake");
         _luaInstance.Get("Start", out luaStart);
+        _luaInstance.Get("OnEnable", out luaOnEnable);
+        _luaInstance.Get("OnDisable", out luaOnDisable);
         _luaInstance.Get("Update", out luaUpdate);
         _luaInstance.Get("OnDestroy", out luaOnDestroy);
 
@@ -72,6 +76,22 @@ public class LuaBehaviour : MonoBehaviour
         if (luaStart != null)
         {
             luaStart(luaInstance);
+        }
+    }
+
+    void OnEnable()
+    {
+        if (luaOnEnable != null)
+        {
+            luaOnEnable(luaInstance);
+        }
+    }
+
+    void OnDisable()
+    {
+        if (luaOnDisable != null)
+        {
+            luaOnDisable(luaInstance);
         }
     }
 

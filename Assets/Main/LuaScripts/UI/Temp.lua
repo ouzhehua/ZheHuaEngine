@@ -7,27 +7,25 @@ function Temp:Awake()
 	sprite.spriteName = "Emoticon - Laugh";
 	Debug.LogError(sprite.name);
 
-	self.Coroutine = XluaUtil.cs_generator(function ()
-		self:CoroutineFunc()
+	self.CoroutineFunc = XluaUtil.cs_generator(function ()
+		self:CoroutineFunction()
 	end)
 
 	local button = self.pic:GetComponent("UIButton");
 
 	AddDelegate(self.pic:GetComponent("UIButton").onClick, function()
-		Debug.LogError("hello world UIButton")
-		-- 不好使
-		-- self.parent:StopCoroutine(self.Coroutine)
-		self.parent:StopAllCoroutines()
+		Debug.LogError("Stop Coroutine")
+		self.parent:StopCoroutine(self.CoroutineInstance)
 	end)
 
-	self.parent:StartCoroutine(self.Coroutine)
+	self.CoroutineInstance = self.parent:StartCoroutine(self.CoroutineFunc)
 end
 
-function Temp:CoroutineFunc()
+function Temp:CoroutineFunction()
 	print('coroutine start!')
 	local s = os.time()
 
-	coroutine.yield(CS.UnityEngine.WaitForSeconds(3))
+	coroutine.yield(CS.UnityEngine.WaitForSeconds(1))
 	print('wait interval:', os.time() - s)
 
 	local www = CS.UnityEngine.WWW('http://www.qq.com')
@@ -39,7 +37,7 @@ function Temp:CoroutineFunc()
 	end
 
 	while(true) do
-		coroutine.yield(CS.UnityEngine.WaitForSeconds(1))
+		coroutine.yield(0)
 		print("zou ni "..self.parent.name)
 	end
 end
