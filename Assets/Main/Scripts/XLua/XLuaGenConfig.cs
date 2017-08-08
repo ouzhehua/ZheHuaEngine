@@ -37,6 +37,7 @@ public static class XLuaGenConfig
 		typeof(System.Collections.Generic.List<int>),
 		typeof(Action<string>),
 		typeof(UnityEngine.Debug),
+        typeof(WaitForSeconds),
 
         //EventDelegate
         typeof(LuaScriptUtil),

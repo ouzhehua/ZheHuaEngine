@@ -80,7 +80,10 @@ public class XLuaComponent : MonoBehaviour
             Tick();
         }
     }
-
+    void OnDestroy()
+    {
+        _luaEnv.Dispose();
+    }
     //void OnGUI()
     //{
     //    GUILayout.Label(LuaConst.LuaBundlePath);

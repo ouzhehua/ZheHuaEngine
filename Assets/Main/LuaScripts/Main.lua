@@ -1,6 +1,7 @@
 require "GlobalDefine"
 require "class"
 require "Utils"
+XluaUtil = require "xlua.util"
 require "HotFixRequirer"
 -- require "UI.Temp"
 
