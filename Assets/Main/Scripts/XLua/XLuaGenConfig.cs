@@ -61,6 +61,7 @@ public static class XLuaGenConfig
 		typeof(Action<string>),
 		typeof(Action<double>),
         typeof(Action<LuaTable>),
+        typeof(Action<LuaTable, object>),
 		typeof(UnityEngine.Events.UnityAction),
 		typeof(System.Collections.IEnumerator)
 	};

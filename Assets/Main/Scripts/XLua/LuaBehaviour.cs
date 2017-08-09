@@ -14,8 +14,9 @@ public class Injection
 [LuaCallCSharp]
 public class LuaBehaviour : MonoBehaviour
 {
-    public string LuaFilePath;
+    public string luaFilePath;
     public Injection[] injections;
+    public Action initializeCallBack;
 
     private Action<LuaTable> luaStart;
     private Action<LuaTable> luaOnEnable;
@@ -32,16 +33,23 @@ public class LuaBehaviour : MonoBehaviour
         { return _luaInstance; }
     }
 
-    void Awake()
+    bool hasInited = false;
+    public void Initialize()
     {
+        if (hasInited)
+        {
+            return;
+        }
+        hasInited = true;
+
         if (creatorFunc == null)
         {
             // function in lua
             creatorFunc = XLuaComponent.instance.luaEnv.Global.Get<StringReturnTable>("NewLuaInstanceByPath");
         }
-
-        _luaInstance = creatorFunc(LuaFilePath);
         
+        _luaInstance = creatorFunc(luaFilePath);
+
         _luaInstance.Set("parent", this);
         _luaInstance.Set("gameObject", gameObject);
         _luaInstance.Set("transform", transform);
@@ -69,6 +77,21 @@ public class LuaBehaviour : MonoBehaviour
         {
             luaAwake(luaInstance);
         }
+
+        if (initializeCallBack != null)
+        {
+            initializeCallBack();
+        }
+    }
+
+    void Awake()
+    {
+        if (string.IsNullOrEmpty(luaFilePath))
+        {
+            return;
+        }
+
+        Initialize();
     }
 
     void Start()

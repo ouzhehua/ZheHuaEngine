@@ -21,6 +21,10 @@ function Temp:Awake()
 	self.CoroutineInstance = self.parent:StartCoroutine(self.CoroutineFunc)
 end
 
+function Temp:OnInit( ... )
+	Debug.LogError("Temp:OnInit")
+end
+
 function Temp:CoroutineFunction()
 	print('coroutine start!')
 	local s = os.time()
