@@ -7,14 +7,14 @@ using XLua;
 public class LuaUIForm : UIFormBase
 {
     public string luaFilePath;
-    public Injection[] injections;
+    public GameObject[] parameters;
 
     private LuaBehaviour luaBehaviour;
     void Awake()
     {
         luaBehaviour = gameObject.AddComponent<LuaBehaviour>();
         luaBehaviour.luaFilePath = luaFilePath;
-        luaBehaviour.injections = injections;
+        luaBehaviour.parameters = parameters;
         luaBehaviour.initializeCallBack = InitializeCallBack;
 
         luaBehaviour.Initialize();
@@ -89,7 +89,7 @@ public class LuaUIForm : UIFormBase
         onInit = null;
         onOpen = null;
         onClose = null;
-        injections = null;
+        parameters = null;
         luaBehaviour = null;
     }
 }

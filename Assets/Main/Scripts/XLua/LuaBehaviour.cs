@@ -4,18 +4,11 @@ using System.Collections.Generic;
 using XLua;
 using System;
 
-[System.Serializable]
-public class Injection
-{
-    public string name;
-    public GameObject value;
-}
-
 [LuaCallCSharp]
 public class LuaBehaviour : MonoBehaviour
 {
     public string luaFilePath;
-    public Injection[] injections;
+    public GameObject[] parameters;
     public Action initializeCallBack;
 
     private Action<LuaTable> luaStart;
@@ -54,15 +47,15 @@ public class LuaBehaviour : MonoBehaviour
         _luaInstance.Set("gameObject", gameObject);
         _luaInstance.Set("transform", transform);
 
-        for (int i = 0; i < injections.Length; i++)
+        for (int i = 0; i < parameters.Length; i++)
         {
-            if (injections[i].name == "parent" || injections[i].name == "gameObject" || injections[i].name == "transform")
+            if (parameters[i].name == "parent" || parameters[i].name == "gameObject" || parameters[i].name == "transform")
             {
-                Debug.LogError(gameObject.name + "'s lua injections include " + injections[i].name);
+                Debug.LogError(gameObject.name + "'s lua injections include " + parameters[i].name);
             }
             else
             {
-                _luaInstance.Set(injections[i].name, injections[i].value);
+                _luaInstance.Set(parameters[i].name, parameters[i]);
             }
         }
 
@@ -136,6 +129,6 @@ public class LuaBehaviour : MonoBehaviour
         luaUpdate = null;
         luaStart = null;
         _luaInstance.Dispose();
-        injections = null;
+        parameters = null;
     }
 }

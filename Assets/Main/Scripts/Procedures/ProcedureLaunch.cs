@@ -29,7 +29,7 @@ namespace Game
                     {
                         UnityEngine.Debug.LogError("TestCube");
                         gameObjects[i].SetActive(true);
-                        GameEntry.UI.OpenUIForm("Assets/Main/Prefabs/UI/UITest.prefab", "Default");
+                        GameEntry.UI.OpenUIForm("Assets/NGUI/UIDemo.prefab", "Default");
 
                         break;
                     }
