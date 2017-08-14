@@ -77,6 +77,8 @@ namespace XLua.CSObjectWrap
 				
 				translator.DelayWrapLoader(typeof(UnityEngine.Debug), UnityEngineDebugWrap.__Register);
 				
+				translator.DelayWrapLoader(typeof(UnityEngine.WaitForSeconds), UnityEngineWaitForSecondsWrap.__Register);
+				
 				translator.DelayWrapLoader(typeof(LuaScriptUtil), LuaScriptUtilWrap.__Register);
 				
 				translator.DelayWrapLoader(typeof(UIPanel), UIPanelWrap.__Register);
@@ -96,6 +98,79 @@ namespace XLua.CSObjectWrap
 				translator.DelayWrapLoader(typeof(UIEventTrigger), UIEventTriggerWrap.__Register);
 				
 				translator.DelayWrapLoader(typeof(NGUITools), NGUIToolsWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UITweener), UITweenerWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(TweenAlpha), TweenAlphaWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(TweenColor), TweenColorWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(TweenHeight), TweenHeightWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(TweenWidth), TweenWidthWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(TweenLetters), TweenLettersWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(TweenPosition), TweenPositionWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(TweenRotation), TweenRotationWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(TweenScale), TweenScaleWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(TweenTransform), TweenTransformWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.AutoPlay), DGTweeningAutoPlayWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.AxisConstraint), DGTweeningAxisConstraintWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.Ease), DGTweeningEaseWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.LogBehaviour), DGTweeningLogBehaviourWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.LoopType), DGTweeningLoopTypeWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.PathMode), DGTweeningPathModeWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.PathType), DGTweeningPathTypeWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.RotateMode), DGTweeningRotateModeWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.ScrambleMode), DGTweeningScrambleModeWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.TweenType), DGTweeningTweenTypeWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.UpdateType), DGTweeningUpdateTypeWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.DOTween), DGTweeningDOTweenWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.DOVirtual), DGTweeningDOVirtualWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.EaseFactory), DGTweeningEaseFactoryWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.Tweener), DGTweeningTweenerWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.Tween), DGTweeningTweenWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.Sequence), DGTweeningSequenceWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.TweenParams), DGTweeningTweenParamsWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.Core.ABSSequentiable), DGTweeningCoreABSSequentiableWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, UnityEngine.Vector3, DG.Tweening.Plugins.Options.VectorOptions>), DGTweeningCoreTweenerCore_3_UnityEngineVector3UnityEngineVector3DGTweeningPluginsOptionsVectorOptions_Wrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.TweenExtensions), DGTweeningTweenExtensionsWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.TweenSettingsExtensions), DGTweeningTweenSettingsExtensionsWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.ShortcutExtensions), DGTweeningShortcutExtensionsWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.ShortcutExtensions43), DGTweeningShortcutExtensions43Wrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.ShortcutExtensions46), DGTweeningShortcutExtensions46Wrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(DG.Tweening.ShortcutExtensions50), DGTweeningShortcutExtensions50Wrap.__Register);
+				
 				
 				
 				translator.AddInterfaceBridgeCreator(typeof(System.Collections.IEnumerator), SystemCollectionsIEnumeratorBridge.__Create);

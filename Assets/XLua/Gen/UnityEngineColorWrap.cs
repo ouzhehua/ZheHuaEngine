@@ -15,12 +15,12 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class UnityEngineColorWrap
+    public class UnityEngineColorWrap 
     {
         public static void __Register(RealStatePtr L)
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			Utils.BeginObjectRegister(typeof(UnityEngine.Color), L, translator, 5, 3, 8, 4);
+			Utils.BeginObjectRegister(typeof(UnityEngine.Color), L, translator, 5, 4, 8, 4);
 			Utils.RegisterFunc(L, Utils.OBJ_META_IDX, "__add", __AddMeta);
             Utils.RegisterFunc(L, Utils.OBJ_META_IDX, "__sub", __SubMeta);
             Utils.RegisterFunc(L, Utils.OBJ_META_IDX, "__mul", __MulMeta);
@@ -30,6 +30,7 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ToString", _m_ToString);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetHashCode", _m_GetHashCode);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Equals", _m_Equals);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GammaToLinearSpace", _m_GammaToLinearSpace);
 			
 			
 			Utils.RegisterFunc(L, Utils.GETTER_IDX, "grayscale", _g_get_grayscale);
@@ -571,6 +572,36 @@ namespace XLua.CSObjectWrap
             }
             
             return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Color.HSVToRGB!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GammaToLinearSpace(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Color __cl_gen_to_be_invoked;translator.Get(L, 1, out __cl_gen_to_be_invoked);
+            
+            
+            try {
+                
+                {
+                    
+                        UnityEngine.Color __cl_gen_ret = __cl_gen_to_be_invoked.GammaToLinearSpace(  );
+                        translator.PushUnityEngineColor(L, __cl_gen_ret);
+                    
+                    
+                        translator.UpdateUnityEngineColor(L, 1, __cl_gen_to_be_invoked);
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
             
         }
         

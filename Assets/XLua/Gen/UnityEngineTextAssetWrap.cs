@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class UnityEngineTextAssetWrap
+    public class UnityEngineTextAssetWrap 
     {
         public static void __Register(RealStatePtr L)
         {

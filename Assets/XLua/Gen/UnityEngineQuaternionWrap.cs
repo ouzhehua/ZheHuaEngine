@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class UnityEngineQuaternionWrap
+    public class UnityEngineQuaternionWrap 
     {
         public static void __Register(RealStatePtr L)
         {

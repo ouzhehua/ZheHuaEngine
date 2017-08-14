@@ -15,12 +15,12 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class UnityEngineGameObjectWrap
+    public class UnityEngineGameObjectWrap 
     {
         public static void __Register(RealStatePtr L)
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			Utils.BeginObjectRegister(typeof(UnityEngine.GameObject), L, translator, 0, 12, 8, 3);
+			Utils.BeginObjectRegister(typeof(UnityEngine.GameObject), L, translator, 0, 14, 8, 3);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetComponent", _m_GetComponent);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetComponentInChildren", _m_GetComponentInChildren);
@@ -34,6 +34,8 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SendMessage", _m_SendMessage);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "BroadcastMessage", _m_BroadcastMessage);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "AddComponent", _m_AddComponent);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "AddChild", _m_AddChild);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "AddSprite", _m_AddSprite);
 			
 			
 			Utils.RegisterFunc(L, Utils.GETTER_IDX, "transform", _g_get_transform);
@@ -784,6 +786,132 @@ namespace XLua.CSObjectWrap
             } catch(System.Exception __gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
             }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_AddChild(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.GameObject __cl_gen_to_be_invoked = (UnityEngine.GameObject)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 2&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)) 
+                {
+                    int layer = LuaAPI.xlua_tointeger(L, 2);
+                    
+                        UnityEngine.GameObject __cl_gen_ret = __cl_gen_to_be_invoked.AddChild( layer );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 2&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 2)) 
+                {
+                    bool undo = LuaAPI.lua_toboolean(L, 2);
+                    
+                        UnityEngine.GameObject __cl_gen_ret = __cl_gen_to_be_invoked.AddChild( undo );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    bool undo = LuaAPI.lua_toboolean(L, 2);
+                    int layer = LuaAPI.xlua_tointeger(L, 3);
+                    
+                        UnityEngine.GameObject __cl_gen_ret = __cl_gen_to_be_invoked.AddChild( undo, layer );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 2&& translator.Assignable<UnityEngine.GameObject>(L, 2)) 
+                {
+                    UnityEngine.GameObject prefab = (UnityEngine.GameObject)translator.GetObject(L, 2, typeof(UnityEngine.GameObject));
+                    
+                        UnityEngine.GameObject __cl_gen_ret = __cl_gen_to_be_invoked.AddChild( prefab );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.GameObject>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.GameObject prefab = (UnityEngine.GameObject)translator.GetObject(L, 2, typeof(UnityEngine.GameObject));
+                    int layer = LuaAPI.xlua_tointeger(L, 3);
+                    
+                        UnityEngine.GameObject __cl_gen_ret = __cl_gen_to_be_invoked.AddChild( prefab, layer );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.GameObject.AddChild!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_AddSprite(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.GameObject __cl_gen_to_be_invoked = (UnityEngine.GameObject)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& translator.Assignable<UIAtlas>(L, 2)&& (LuaAPI.lua_isnil(L, 3) || LuaAPI.lua_type(L, 3) == LuaTypes.LUA_TSTRING)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UIAtlas atlas = (UIAtlas)translator.GetObject(L, 2, typeof(UIAtlas));
+                    string spriteName = LuaAPI.lua_tostring(L, 3);
+                    int depth = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        UISprite __cl_gen_ret = __cl_gen_to_be_invoked.AddSprite( atlas, spriteName, depth );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UIAtlas>(L, 2)&& (LuaAPI.lua_isnil(L, 3) || LuaAPI.lua_type(L, 3) == LuaTypes.LUA_TSTRING)) 
+                {
+                    UIAtlas atlas = (UIAtlas)translator.GetObject(L, 2, typeof(UIAtlas));
+                    string spriteName = LuaAPI.lua_tostring(L, 3);
+                    
+                        UISprite __cl_gen_ret = __cl_gen_to_be_invoked.AddSprite( atlas, spriteName );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.GameObject.AddSprite!");
             
         }
         

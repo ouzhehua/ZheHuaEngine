@@ -10,17 +10,17 @@ using LuaCSFunction = XLua.LuaDLL.lua_CSFunction;
 
 using XLua;
 using System.Collections.Generic;
-
+using DG.Tweening;
 
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class UnityEngineTransformWrap
+    public class UnityEngineTransformWrap 
     {
         public static void __Register(RealStatePtr L)
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			Utils.BeginObjectRegister(typeof(UnityEngine.Transform), L, translator, 0, 21, 19, 13);
+			Utils.BeginObjectRegister(typeof(UnityEngine.Transform), L, translator, 0, 55, 19, 13);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetParent", _m_SetParent);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetPositionAndRotation", _m_SetPositionAndRotation);
@@ -43,6 +43,40 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "IsChildOf", _m_IsChildOf);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetEnumerator", _m_GetEnumerator);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetChild", _m_GetChild);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetChildLayer", _m_SetChildLayer);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DestroyChildren", _m_DestroyChildren);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOMove", _m_DOMove);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOMoveX", _m_DOMoveX);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOMoveY", _m_DOMoveY);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOMoveZ", _m_DOMoveZ);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOLocalMove", _m_DOLocalMove);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOLocalMoveX", _m_DOLocalMoveX);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOLocalMoveY", _m_DOLocalMoveY);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOLocalMoveZ", _m_DOLocalMoveZ);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DORotate", _m_DORotate);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DORotateQuaternion", _m_DORotateQuaternion);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOLocalRotate", _m_DOLocalRotate);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOLocalRotateQuaternion", _m_DOLocalRotateQuaternion);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOScale", _m_DOScale);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOScaleX", _m_DOScaleX);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOScaleY", _m_DOScaleY);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOScaleZ", _m_DOScaleZ);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOLookAt", _m_DOLookAt);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOPunchPosition", _m_DOPunchPosition);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOPunchScale", _m_DOPunchScale);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOPunchRotation", _m_DOPunchRotation);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOShakePosition", _m_DOShakePosition);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOShakeRotation", _m_DOShakeRotation);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOShakeScale", _m_DOShakeScale);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOJump", _m_DOJump);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOLocalJump", _m_DOLocalJump);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOPath", _m_DOPath);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOLocalPath", _m_DOLocalPath);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOBlendableMoveBy", _m_DOBlendableMoveBy);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOBlendableLocalMoveBy", _m_DOBlendableLocalMoveBy);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOBlendableRotateBy", _m_DOBlendableRotateBy);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOBlendableLocalRotateBy", _m_DOBlendableLocalRotateBy);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "DOBlendableScaleBy", _m_DOBlendableScaleBy);
 			
 			
 			Utils.RegisterFunc(L, Utils.GETTER_IDX, "position", _g_get_position);
@@ -969,6 +1003,1945 @@ namespace XLua.CSObjectWrap
                     int index = LuaAPI.xlua_tointeger(L, 2);
                     
                         UnityEngine.Transform __cl_gen_ret = __cl_gen_to_be_invoked.GetChild( index );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetChildLayer(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+            try {
+                
+                {
+                    int layer = LuaAPI.xlua_tointeger(L, 2);
+                    
+                    __cl_gen_to_be_invoked.SetChildLayer( layer );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DestroyChildren(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+            try {
+                
+                {
+                    
+                    __cl_gen_to_be_invoked.DestroyChildren(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOMove(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOMove( endValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOMove( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOMove!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOMoveX(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOMoveX( endValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOMoveX( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOMoveX!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOMoveY(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOMoveY( endValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOMoveY( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOMoveY!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOMoveZ(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOMoveZ( endValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOMoveZ( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOMoveZ!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOLocalMove(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalMove( endValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalMove( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOLocalMove!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOLocalMoveX(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalMoveX( endValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalMoveX( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOLocalMoveX!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOLocalMoveY(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalMoveY( endValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalMoveY( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOLocalMoveY!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOLocalMoveZ(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalMoveZ( endValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalMoveZ( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOLocalMoveZ!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DORotate(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.RotateMode>(L, 4)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.RotateMode mode;translator.Get(L, 4, out mode);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DORotate( endValue, duration, mode );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DORotate( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DORotate!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DORotateQuaternion(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+            try {
+                
+                {
+                    UnityEngine.Quaternion endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DORotateQuaternion( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOLocalRotate(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.RotateMode>(L, 4)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.RotateMode mode;translator.Get(L, 4, out mode);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalRotate( endValue, duration, mode );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalRotate( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOLocalRotate!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOLocalRotateQuaternion(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+            try {
+                
+                {
+                    UnityEngine.Quaternion endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalRotateQuaternion( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOScale(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOScale( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOScale( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOScale!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOScaleX(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+            try {
+                
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOScaleX( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOScaleY(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+            try {
+                
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOScaleY( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOScaleZ(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+            try {
+                
+                {
+                    float endValue = (float)LuaAPI.lua_tonumber(L, 2);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOScaleZ( endValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOLookAt(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.AxisConstraint>(L, 4)&& translator.Assignable<System.Nullable<UnityEngine.Vector3>>(L, 5)) 
+                {
+                    UnityEngine.Vector3 towards;translator.Get(L, 2, out towards);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.AxisConstraint axisConstraint;translator.Get(L, 4, out axisConstraint);
+                    System.Nullable<UnityEngine.Vector3> up;translator.Get(L, 5, out up);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLookAt( towards, duration, axisConstraint, up );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.AxisConstraint>(L, 4)) 
+                {
+                    UnityEngine.Vector3 towards;translator.Get(L, 2, out towards);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.AxisConstraint axisConstraint;translator.Get(L, 4, out axisConstraint);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLookAt( towards, duration, axisConstraint );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 towards;translator.Get(L, 2, out towards);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOLookAt( towards, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOLookAt!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOPunchPosition(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 6&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float elasticity = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool snapping = LuaAPI.lua_toboolean(L, 6);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchPosition( punch, duration, vibrato, elasticity, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float elasticity = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchPosition( punch, duration, vibrato, elasticity );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchPosition( punch, duration, vibrato );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchPosition( punch, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOPunchPosition!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOPunchScale(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float elasticity = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchScale( punch, duration, vibrato, elasticity );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchScale( punch, duration, vibrato );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchScale( punch, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOPunchScale!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOPunchRotation(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float elasticity = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchRotation( punch, duration, vibrato, elasticity );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchRotation( punch, duration, vibrato );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 punch;translator.Get(L, 2, out punch);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOPunchRotation( punch, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOPunchRotation!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOShakePosition(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 7&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool snapping = LuaAPI.lua_toboolean(L, 6);
+                    bool fadeOut = LuaAPI.lua_toboolean(L, 7);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength, vibrato, randomness, snapping, fadeOut );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool snapping = LuaAPI.lua_toboolean(L, 6);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength, vibrato, randomness, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength, vibrato, randomness );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength, vibrato );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 2&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 7&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 7)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool snapping = LuaAPI.lua_toboolean(L, 6);
+                    bool fadeOut = LuaAPI.lua_toboolean(L, 7);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength, vibrato, randomness, snapping, fadeOut );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool snapping = LuaAPI.lua_toboolean(L, 6);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength, vibrato, randomness, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength, vibrato, randomness );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength, vibrato );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakePosition( duration, strength );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOShakePosition!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOShakeRotation(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool fadeOut = LuaAPI.lua_toboolean(L, 6);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeRotation( duration, strength, vibrato, randomness, fadeOut );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeRotation( duration, strength, vibrato, randomness );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeRotation( duration, strength, vibrato );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeRotation( duration, strength );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 2&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeRotation( duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool fadeOut = LuaAPI.lua_toboolean(L, 6);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeRotation( duration, strength, vibrato, randomness, fadeOut );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeRotation( duration, strength, vibrato, randomness );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeRotation( duration, strength, vibrato );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeRotation( duration, strength );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOShakeRotation!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOShakeScale(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool fadeOut = LuaAPI.lua_toboolean(L, 6);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeScale( duration, strength, vibrato, randomness, fadeOut );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeScale( duration, strength, vibrato, randomness );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeScale( duration, strength, vibrato );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    float strength = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeScale( duration, strength );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 2&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeScale( duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 6&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool fadeOut = LuaAPI.lua_toboolean(L, 6);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeScale( duration, strength, vibrato, randomness, fadeOut );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    float randomness = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeScale( duration, strength, vibrato, randomness );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    int vibrato = LuaAPI.xlua_tointeger(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeScale( duration, strength, vibrato );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 2)&& translator.Assignable<UnityEngine.Vector3>(L, 3)) 
+                {
+                    float duration = (float)LuaAPI.lua_tonumber(L, 2);
+                    UnityEngine.Vector3 strength;translator.Get(L, 3, out strength);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOShakeScale( duration, strength );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOShakeScale!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOJump(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 6&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float jumpPower = (float)LuaAPI.lua_tonumber(L, 3);
+                    int numJumps = LuaAPI.xlua_tointeger(L, 4);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool snapping = LuaAPI.lua_toboolean(L, 6);
+                    
+                        DG.Tweening.Sequence __cl_gen_ret = __cl_gen_to_be_invoked.DOJump( endValue, jumpPower, numJumps, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float jumpPower = (float)LuaAPI.lua_tonumber(L, 3);
+                    int numJumps = LuaAPI.xlua_tointeger(L, 4);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Sequence __cl_gen_ret = __cl_gen_to_be_invoked.DOJump( endValue, jumpPower, numJumps, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOJump!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOLocalJump(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 6&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 6)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float jumpPower = (float)LuaAPI.lua_tonumber(L, 3);
+                    int numJumps = LuaAPI.xlua_tointeger(L, 4);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 5);
+                    bool snapping = LuaAPI.lua_toboolean(L, 6);
+                    
+                        DG.Tweening.Sequence __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalJump( endValue, jumpPower, numJumps, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 4)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 5)) 
+                {
+                    UnityEngine.Vector3 endValue;translator.Get(L, 2, out endValue);
+                    float jumpPower = (float)LuaAPI.lua_tonumber(L, 3);
+                    int numJumps = LuaAPI.xlua_tointeger(L, 4);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 5);
+                    
+                        DG.Tweening.Sequence __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalJump( endValue, jumpPower, numJumps, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOLocalJump!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOPath(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 7&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.PathType>(L, 4)&& translator.Assignable<DG.Tweening.PathMode>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& translator.Assignable<System.Nullable<UnityEngine.Color>>(L, 7)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.PathType pathType;translator.Get(L, 4, out pathType);
+                    DG.Tweening.PathMode pathMode;translator.Get(L, 5, out pathMode);
+                    int resolution = LuaAPI.xlua_tointeger(L, 6);
+                    System.Nullable<UnityEngine.Color> gizmoColor;translator.Get(L, 7, out gizmoColor);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOPath( path, duration, pathType, pathMode, resolution, gizmoColor );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 6&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.PathType>(L, 4)&& translator.Assignable<DG.Tweening.PathMode>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.PathType pathType;translator.Get(L, 4, out pathType);
+                    DG.Tweening.PathMode pathMode;translator.Get(L, 5, out pathMode);
+                    int resolution = LuaAPI.xlua_tointeger(L, 6);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOPath( path, duration, pathType, pathMode, resolution );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.PathType>(L, 4)&& translator.Assignable<DG.Tweening.PathMode>(L, 5)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.PathType pathType;translator.Get(L, 4, out pathType);
+                    DG.Tweening.PathMode pathMode;translator.Get(L, 5, out pathMode);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOPath( path, duration, pathType, pathMode );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.PathType>(L, 4)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.PathType pathType;translator.Get(L, 4, out pathType);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOPath( path, duration, pathType );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOPath( path, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOPath!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOLocalPath(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 7&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.PathType>(L, 4)&& translator.Assignable<DG.Tweening.PathMode>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)&& translator.Assignable<System.Nullable<UnityEngine.Color>>(L, 7)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.PathType pathType;translator.Get(L, 4, out pathType);
+                    DG.Tweening.PathMode pathMode;translator.Get(L, 5, out pathMode);
+                    int resolution = LuaAPI.xlua_tointeger(L, 6);
+                    System.Nullable<UnityEngine.Color> gizmoColor;translator.Get(L, 7, out gizmoColor);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalPath( path, duration, pathType, pathMode, resolution, gizmoColor );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 6&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.PathType>(L, 4)&& translator.Assignable<DG.Tweening.PathMode>(L, 5)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 6)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.PathType pathType;translator.Get(L, 4, out pathType);
+                    DG.Tweening.PathMode pathMode;translator.Get(L, 5, out pathMode);
+                    int resolution = LuaAPI.xlua_tointeger(L, 6);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalPath( path, duration, pathType, pathMode, resolution );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 5&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.PathType>(L, 4)&& translator.Assignable<DG.Tweening.PathMode>(L, 5)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.PathType pathType;translator.Get(L, 4, out pathType);
+                    DG.Tweening.PathMode pathMode;translator.Get(L, 5, out pathMode);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalPath( path, duration, pathType, pathMode );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.PathType>(L, 4)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.PathType pathType;translator.Get(L, 4, out pathType);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalPath( path, duration, pathType );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3[]>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3[] path = (UnityEngine.Vector3[])translator.GetObject(L, 2, typeof(UnityEngine.Vector3[]));
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Core.TweenerCore<UnityEngine.Vector3, DG.Tweening.Plugins.Core.PathCore.Path, DG.Tweening.Plugins.Options.PathOptions> __cl_gen_ret = __cl_gen_to_be_invoked.DOLocalPath( path, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOLocalPath!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOBlendableMoveBy(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector3 byValue;translator.Get(L, 2, out byValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOBlendableMoveBy( byValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 byValue;translator.Get(L, 2, out byValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOBlendableMoveBy( byValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOBlendableMoveBy!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOBlendableLocalMoveBy(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& LuaTypes.LUA_TBOOLEAN == LuaAPI.lua_type(L, 4)) 
+                {
+                    UnityEngine.Vector3 byValue;translator.Get(L, 2, out byValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    bool snapping = LuaAPI.lua_toboolean(L, 4);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOBlendableLocalMoveBy( byValue, duration, snapping );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 byValue;translator.Get(L, 2, out byValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOBlendableLocalMoveBy( byValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOBlendableLocalMoveBy!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOBlendableRotateBy(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.RotateMode>(L, 4)) 
+                {
+                    UnityEngine.Vector3 byValue;translator.Get(L, 2, out byValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.RotateMode mode;translator.Get(L, 4, out mode);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOBlendableRotateBy( byValue, duration, mode );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 byValue;translator.Get(L, 2, out byValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOBlendableRotateBy( byValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOBlendableRotateBy!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOBlendableLocalRotateBy(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+			int __gen_param_count = LuaAPI.lua_gettop(L);
+            
+            try {
+                if(__gen_param_count == 4&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)&& translator.Assignable<DG.Tweening.RotateMode>(L, 4)) 
+                {
+                    UnityEngine.Vector3 byValue;translator.Get(L, 2, out byValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    DG.Tweening.RotateMode mode;translator.Get(L, 4, out mode);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOBlendableLocalRotateBy( byValue, duration, mode );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                if(__gen_param_count == 3&& translator.Assignable<UnityEngine.Vector3>(L, 2)&& LuaTypes.LUA_TNUMBER == LuaAPI.lua_type(L, 3)) 
+                {
+                    UnityEngine.Vector3 byValue;translator.Get(L, 2, out byValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOBlendableLocalRotateBy( byValue, duration );
+                        translator.Push(L, __cl_gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+            return LuaAPI.luaL_error(L, "invalid arguments to UnityEngine.Transform.DOBlendableLocalRotateBy!");
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_DOBlendableScaleBy(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            UnityEngine.Transform __cl_gen_to_be_invoked = (UnityEngine.Transform)translator.FastGetCSObj(L, 1);
+            
+            
+            try {
+                
+                {
+                    UnityEngine.Vector3 byValue;translator.Get(L, 2, out byValue);
+                    float duration = (float)LuaAPI.lua_tonumber(L, 3);
+                    
+                        DG.Tweening.Tweener __cl_gen_ret = __cl_gen_to_be_invoked.DOBlendableScaleBy( byValue, duration );
                         translator.Push(L, __cl_gen_ret);
                     
                     

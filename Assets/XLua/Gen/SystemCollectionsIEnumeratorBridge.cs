@@ -28,7 +28,7 @@ namespace XLua.CSObjectWrap
         
 		public bool MoveNext()
 		{
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
             {
 #endif
@@ -58,14 +58,14 @@ namespace XLua.CSObjectWrap
 				bool __gen_ret = LuaAPI.lua_toboolean(L, err_func + 1);
 				LuaAPI.lua_settop(L, err_func - 1);
 				return  __gen_ret;
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
 #endif
 		}
         
 		public void Reset()
 		{
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
             {
 #endif
@@ -95,7 +95,7 @@ namespace XLua.CSObjectWrap
 				
 				LuaAPI.lua_settop(L, err_func - 1);
 				
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
 #endif
 		}
@@ -107,7 +107,7 @@ namespace XLua.CSObjectWrap
             
             get 
             {
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
                 lock (luaEnv.luaEnvLock)
                 {
 #endif
@@ -123,7 +123,7 @@ namespace XLua.CSObjectWrap
 					object __gen_ret = translator.GetObject(L, -1, typeof(object));
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
                 }
 #endif
             }

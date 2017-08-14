@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class UILabelWrap
+    public class UILabelWrap 
     {
         public static void __Register(RealStatePtr L)
         {

@@ -15,21 +15,24 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class LuaBehaviourWrap
+    public class LuaBehaviourWrap 
     {
         public static void __Register(RealStatePtr L)
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			Utils.BeginObjectRegister(typeof(LuaBehaviour), L, translator, 0, 0, 3, 2);
+			Utils.BeginObjectRegister(typeof(LuaBehaviour), L, translator, 0, 1, 4, 3);
 			
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Initialize", _m_Initialize);
 			
 			
 			Utils.RegisterFunc(L, Utils.GETTER_IDX, "luaInstance", _g_get_luaInstance);
-            Utils.RegisterFunc(L, Utils.GETTER_IDX, "LuaFilePath", _g_get_LuaFilePath);
-            Utils.RegisterFunc(L, Utils.GETTER_IDX, "injections", _g_get_injections);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "luaFilePath", _g_get_luaFilePath);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "parameters", _g_get_parameters);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "initializeCallBack", _g_get_initializeCallBack);
             
-			Utils.RegisterFunc(L, Utils.SETTER_IDX, "LuaFilePath", _s_set_LuaFilePath);
-            Utils.RegisterFunc(L, Utils.SETTER_IDX, "injections", _s_set_injections);
+			Utils.RegisterFunc(L, Utils.SETTER_IDX, "luaFilePath", _s_set_luaFilePath);
+            Utils.RegisterFunc(L, Utils.SETTER_IDX, "parameters", _s_set_parameters);
+            Utils.RegisterFunc(L, Utils.SETTER_IDX, "initializeCallBack", _s_set_initializeCallBack);
             
 			Utils.EndObjectRegister(typeof(LuaBehaviour), L, translator, null, null,
 			    null, null, null);
@@ -74,6 +77,33 @@ namespace XLua.CSObjectWrap
         
         
         
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_Initialize(RealStatePtr L)
+        {
+            
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            LuaBehaviour __cl_gen_to_be_invoked = (LuaBehaviour)translator.FastGetCSObj(L, 1);
+            
+            
+            try {
+                
+                {
+                    
+                    __cl_gen_to_be_invoked.Initialize(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            
+        }
+        
         
         
         
@@ -92,13 +122,13 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _g_get_LuaFilePath(RealStatePtr L)
+        static int _g_get_luaFilePath(RealStatePtr L)
         {
             ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
             try {
 			
                 LuaBehaviour __cl_gen_to_be_invoked = (LuaBehaviour)translator.FastGetCSObj(L, 1);
-                LuaAPI.lua_pushstring(L, __cl_gen_to_be_invoked.LuaFilePath);
+                LuaAPI.lua_pushstring(L, __cl_gen_to_be_invoked.luaFilePath);
             } catch(System.Exception __gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
             }
@@ -106,13 +136,27 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _g_get_injections(RealStatePtr L)
+        static int _g_get_parameters(RealStatePtr L)
         {
             ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
             try {
 			
                 LuaBehaviour __cl_gen_to_be_invoked = (LuaBehaviour)translator.FastGetCSObj(L, 1);
-                translator.Push(L, __cl_gen_to_be_invoked.injections);
+                translator.Push(L, __cl_gen_to_be_invoked.parameters);
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_initializeCallBack(RealStatePtr L)
+        {
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            try {
+			
+                LuaBehaviour __cl_gen_to_be_invoked = (LuaBehaviour)translator.FastGetCSObj(L, 1);
+                translator.Push(L, __cl_gen_to_be_invoked.initializeCallBack);
             } catch(System.Exception __gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
             }
@@ -122,13 +166,13 @@ namespace XLua.CSObjectWrap
         
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _s_set_LuaFilePath(RealStatePtr L)
+        static int _s_set_luaFilePath(RealStatePtr L)
         {
             ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
             try {
 			
                 LuaBehaviour __cl_gen_to_be_invoked = (LuaBehaviour)translator.FastGetCSObj(L, 1);
-                __cl_gen_to_be_invoked.LuaFilePath = LuaAPI.lua_tostring(L, 2);
+                __cl_gen_to_be_invoked.luaFilePath = LuaAPI.lua_tostring(L, 2);
             
             } catch(System.Exception __gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
@@ -137,13 +181,28 @@ namespace XLua.CSObjectWrap
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _s_set_injections(RealStatePtr L)
+        static int _s_set_parameters(RealStatePtr L)
         {
             ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
             try {
 			
                 LuaBehaviour __cl_gen_to_be_invoked = (LuaBehaviour)translator.FastGetCSObj(L, 1);
-                __cl_gen_to_be_invoked.injections = (Injection[])translator.GetObject(L, 2, typeof(Injection[]));
+                __cl_gen_to_be_invoked.parameters = (UnityEngine.GameObject[])translator.GetObject(L, 2, typeof(UnityEngine.GameObject[]));
+            
+            } catch(System.Exception __gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);
+            }
+            return 0;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _s_set_initializeCallBack(RealStatePtr L)
+        {
+            ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            try {
+			
+                LuaBehaviour __cl_gen_to_be_invoked = (LuaBehaviour)translator.FastGetCSObj(L, 1);
+                __cl_gen_to_be_invoked.initializeCallBack = translator.GetDelegate<System.Action>(L, 2);
             
             } catch(System.Exception __gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + __gen_e);

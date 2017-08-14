@@ -18,7 +18,7 @@ namespace XLua
 		
 		public XLua.LuaTable __Gen_Delegate_Imp0(string p0)
 		{
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
             {
 #endif
@@ -38,14 +38,14 @@ namespace XLua
                 XLua.LuaTable __gen_ret = (XLua.LuaTable)translator.GetObject(L, err_func + 1, typeof(XLua.LuaTable));
                 LuaAPI.lua_settop(L, err_func - 1);
                 return  __gen_ret;
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
 #endif
 		}
         
 		public string __Gen_Delegate_Imp1()
 		{
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
             {
 #endif
@@ -64,14 +64,14 @@ namespace XLua
                 string __gen_ret = LuaAPI.lua_tostring(L, err_func + 1);
                 LuaAPI.lua_settop(L, err_func - 1);
                 return  __gen_ret;
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
 #endif
 		}
         
 		public void __Gen_Delegate_Imp2()
 		{
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
             {
 #endif
@@ -90,14 +90,14 @@ namespace XLua
                 
                 LuaAPI.lua_settop(L, err_func - 1);
                 
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
 #endif
 		}
         
 		public double __Gen_Delegate_Imp3(double p0, double p1)
 		{
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
             {
 #endif
@@ -118,14 +118,14 @@ namespace XLua
                 double __gen_ret = LuaAPI.lua_tonumber(L, err_func + 1);
                 LuaAPI.lua_settop(L, err_func - 1);
                 return  __gen_ret;
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
 #endif
 		}
         
 		public void __Gen_Delegate_Imp4(string p0)
 		{
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
             {
 #endif
@@ -145,14 +145,14 @@ namespace XLua
                 
                 LuaAPI.lua_settop(L, err_func - 1);
                 
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
 #endif
 		}
         
 		public void __Gen_Delegate_Imp5(double p0)
 		{
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
             {
 #endif
@@ -172,14 +172,14 @@ namespace XLua
                 
                 LuaAPI.lua_settop(L, err_func - 1);
                 
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
 #endif
 		}
         
 		public void __Gen_Delegate_Imp6(XLua.LuaTable p0)
 		{
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
             {
 #endif
@@ -199,7 +199,35 @@ namespace XLua
                 
                 LuaAPI.lua_settop(L, err_func - 1);
                 
-#if THREAD_SAFT || HOTFIX_ENABLE
+#if THREAD_SAFE || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
+		public void __Gen_Delegate_Imp7(XLua.LuaTable p0, object p1)
+		{
+#if THREAD_SAFE || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int err_func =LuaAPI.load_error_func(L, errorFuncRef);
+                ObjectTranslator translator = luaEnv.translator;
+                
+                LuaAPI.lua_getref(L, luaReference);
+                
+                translator.Push(L, p0);
+                translator.PushAny(L, p1);
+                
+                int __gen_error = LuaAPI.lua_pcall(L, 2, 0, err_func);
+                if (__gen_error != 0)
+                    luaEnv.ThrowExceptionFromError(err_func - 1);
+                
+                
+                
+                LuaAPI.lua_settop(L, err_func - 1);
+                
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
 #endif
 		}
@@ -253,7 +281,12 @@ namespace XLua
 			    return new System.Action<XLua.LuaTable>(__Gen_Delegate_Imp6);
 			}
 		
-		    throw new InvalidCastException("This delegate must add to CSharpCallLua: " + type);
+		    if (type == typeof(System.Action<XLua.LuaTable, object>))
+			{
+			    return new System.Action<XLua.LuaTable, object>(__Gen_Delegate_Imp7);
+			}
+		
+		    throw new InvalidCastException("This type must add to CSharpCallLua: " + type);
 		}
 	}
     
