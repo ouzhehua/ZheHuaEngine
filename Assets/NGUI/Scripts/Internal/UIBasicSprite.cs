@@ -14,6 +14,9 @@ public abstract class UIBasicSprite : UIWidget
 		Sliced,
 		Tiled,
 		Filled,
+        MirroredSimple,
+        MirroredSliced,
+        MirroredCrossSimple,
 		Advanced,
 	}
 
@@ -370,6 +373,18 @@ public abstract class UIBasicSprite : UIWidget
 			case Type.Tiled:
 			TiledFill(verts, uvs, cols);
 			break;
+
+            case Type.MirroredSimple:
+            SimpleMirroredFill(verts, uvs, cols);
+            break;
+
+            case Type.MirroredSliced:
+            SlicedMirroredFill(verts, uvs, cols);
+            break;
+
+            case Type.MirroredCrossSimple:
+            SimpleCrossMirroredFill(verts, uvs, cols);
+            break;
 
 			case Type.Advanced:
 			AdvancedFill(verts, uvs, cols);
@@ -800,6 +815,226 @@ public abstract class UIBasicSprite : UIWidget
 			cols.Add(c);
 		}
 	}
+
+    /// <summary>
+    /// Simple Mirrored fill function. Contributed by zhehua
+    /// </summary>
+    void SimpleMirroredFill(List<Vector3> verts, List<Vector2> uvs, List<Color> cols)
+    {
+        Vector4 v = drawingDimensions;
+        Vector4 u = drawingUVs;
+        Color32 c = drawingColor;
+
+        verts.Add(new Vector3(v.x, v.y));
+        verts.Add(new Vector3(v.x, v.w));
+        verts.Add(new Vector3((v.x + v.z) / 2, v.w));
+        verts.Add(new Vector3((v.x + v.z) / 2, v.y));
+
+        uvs.Add(new Vector2(u.x, u.y));
+        uvs.Add(new Vector2(u.x, u.w));
+        uvs.Add(new Vector2(u.z, u.w));
+        uvs.Add(new Vector2(u.z, u.y));
+
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+
+        verts.Add(new Vector3((v.x + v.z) / 2, v.y));
+        verts.Add(new Vector3((v.x + v.z) / 2, v.w));
+        verts.Add(new Vector3(v.z, v.w));
+        verts.Add(new Vector3(v.z, v.y));
+
+        uvs.Add(new Vector2(u.z, u.y));
+        uvs.Add(new Vector2(u.z, u.w));
+        uvs.Add(new Vector2(u.x, u.w));
+        uvs.Add(new Vector2(u.x, u.y));
+
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+    }
+
+    /// <summary>
+    /// Sliced Mirrored fill function. Contributed by zhehua
+    /// </summary>
+    void SlicedMirroredFill(List<Vector3> verts, List<Vector2> uvs, List<Color> cols)
+    {
+        Vector4 br = border * pixelSize;
+        if (br.x == 0f && br.y == 0f && br.z == 0 && br.w == 0)
+        {
+            SimpleMirroredFill(verts, uvs, cols);
+            return;
+        }
+
+        Vector4 v = drawingDimensions;
+        Vector4 u = drawingUVs;
+        Color32 c = drawingColor;
+
+        Vector4 Half_Left_v = new Vector4(v.x, v.y, (v.x + v.z) / 2, v.w);
+        Vector4 Half_Right_v = new Vector4((v.x + v.z) / 2, v.y, v.z, v.w);
+
+        mTempPos[0].x = Half_Left_v.x;
+        mTempPos[0].y = Half_Left_v.y;
+        mTempPos[3].x = Half_Left_v.z;
+        mTempPos[3].y = Half_Left_v.w;
+        mTempPos[1].x = mTempPos[0].x + br.x;
+        mTempPos[2].x = mTempPos[3].x - br.z;
+
+        mTempUVs[0].x = mOuterUV.xMin;
+        mTempUVs[1].x = mInnerUV.xMin;
+        mTempUVs[2].x = mInnerUV.xMax;
+        mTempUVs[3].x = mOuterUV.xMax;
+
+        mTempPos[1].y = mTempPos[0].y + br.y;
+        mTempPos[2].y = mTempPos[3].y - br.w;
+        mTempUVs[0].y = mOuterUV.yMin;
+        mTempUVs[1].y = mInnerUV.yMin;
+        mTempUVs[2].y = mInnerUV.yMax;
+        mTempUVs[3].y = mOuterUV.yMax;
+
+        for (int x = 0; x < 3; ++x)
+        {
+            int x2 = x + 1;
+            for (int y = 0; y < 3; ++y)
+            {
+                if (centerType == AdvancedType.Invisible && x == 1 && y == 1) continue;
+				int y2 = y + 1;
+                verts.Add(new Vector3(mTempPos[x].x, mTempPos[y].y));
+                verts.Add(new Vector3(mTempPos[x].x, mTempPos[y2].y));
+                verts.Add(new Vector3(mTempPos[x2].x, mTempPos[y2].y));
+                verts.Add(new Vector3(mTempPos[x2].x, mTempPos[y].y));
+
+                uvs.Add(new Vector2(mTempUVs[x].x, mTempUVs[y].y));
+                uvs.Add(new Vector2(mTempUVs[x].x, mTempUVs[y2].y));
+                uvs.Add(new Vector2(mTempUVs[x2].x, mTempUVs[y2].y));
+                uvs.Add(new Vector2(mTempUVs[x2].x, mTempUVs[y].y));
+
+                cols.Add(c);
+                cols.Add(c);
+                cols.Add(c);
+                cols.Add(c);
+            }
+        }
+
+        mTempPos[0].x = Half_Right_v.x;
+        mTempPos[0].y = Half_Right_v.y;
+        mTempPos[3].x = Half_Right_v.z;
+        mTempPos[3].y = Half_Right_v.w;
+        mTempPos[1].x = mTempPos[0].x + br.z;
+        mTempPos[2].x = mTempPos[3].x - br.x;
+
+        mTempUVs[3].x = mOuterUV.xMin;
+        mTempUVs[2].x = mInnerUV.xMin;
+        mTempUVs[1].x = mInnerUV.xMax;
+        mTempUVs[0].x = mOuterUV.xMax;
+
+        mTempPos[1].y = mTempPos[0].y + br.y;
+        mTempPos[2].y = mTempPos[3].y - br.w;
+        mTempUVs[0].y = mOuterUV.yMin;
+        mTempUVs[1].y = mInnerUV.yMin;
+        mTempUVs[2].y = mInnerUV.yMax;
+        mTempUVs[3].y = mOuterUV.yMax;
+
+        for (int x = 0; x < 3; ++x)
+        {
+            int x2 = x + 1;
+            for (int y = 0; y < 3; ++y)
+            {
+                if (centerType == AdvancedType.Invisible && x == 1 && y == 1) continue;
+                int y2 = y + 1;
+                verts.Add(new Vector3(mTempPos[x].x, mTempPos[y].y));
+                verts.Add(new Vector3(mTempPos[x].x, mTempPos[y2].y));
+                verts.Add(new Vector3(mTempPos[x2].x, mTempPos[y2].y));
+                verts.Add(new Vector3(mTempPos[x2].x, mTempPos[y].y));
+
+                uvs.Add(new Vector2(mTempUVs[x].x, mTempUVs[y].y));
+                uvs.Add(new Vector2(mTempUVs[x].x, mTempUVs[y2].y));
+                uvs.Add(new Vector2(mTempUVs[x2].x, mTempUVs[y2].y));
+                uvs.Add(new Vector2(mTempUVs[x2].x, mTempUVs[y].y));
+
+                cols.Add(c);
+                cols.Add(c);
+                cols.Add(c);
+                cols.Add(c);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Simple Mirrored fill function. Contributed by zhehua
+    /// </summary>
+    void SimpleCrossMirroredFill(List<Vector3> verts, List<Vector2> uvs, List<Color> cols)
+    {
+        Vector4 v = drawingDimensions;
+        Vector4 u = drawingUVs;
+        Color32 c = drawingColor;
+
+        //drawingDimensions is divided into four areas
+        Vector4 upper_Left_v = new Vector4(v.x, (v.w + v.y) / 2, (v.x + v.z) / 2, v.w);
+        Vector4 lower_Left_v = new Vector4(v.x, v.y, (v.x + v.z) / 2, (v.y + v.w) / 2);
+        Vector4 upper_Right_v = new Vector4((v.x + v.z) / 2, (v.w + v.y) / 2, v.z, v.w);
+        Vector4 lower_Right_v = new Vector4((v.x + v.z) / 2, v.y, v.z, (v.w + v.y) / 2);
+
+        //左上图形，图片左下对应左下，左上对应左上，右上对应右上，右下对应右下
+        verts.Add(new Vector3(upper_Left_v.x, upper_Left_v.y));//左下
+        verts.Add(new Vector3(upper_Left_v.x, upper_Left_v.w));//左上
+        verts.Add(new Vector3(upper_Left_v.z, upper_Left_v.w));//右上
+        verts.Add(new Vector3(upper_Left_v.z, upper_Left_v.y));//右下
+        uvs.Add(new Vector2(u.x, u.y));//图片的左下角
+        uvs.Add(new Vector2(u.x, u.w));//图片的左上角
+        uvs.Add(new Vector2(u.z, u.w));//图片的右上角
+        uvs.Add(new Vector2(u.z, u.y));//图片的右下角
+
+        //uvs.add与vets.add中点的加入顺序构成区域顶点和图像顶点的一一对应关系
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+
+        //左下角的图形，图片左下对应左上，左上对应左下，右下对应右上，右上对应右下
+        verts.Add(new Vector3(lower_Left_v.x, lower_Left_v.w));//左上
+        verts.Add(new Vector3(lower_Left_v.x, lower_Left_v.y));//左下
+        verts.Add(new Vector3(lower_Left_v.z, lower_Left_v.y));//右下
+        verts.Add(new Vector3(lower_Left_v.z, lower_Left_v.w));//右上
+        uvs.Add(new Vector2(u.x, u.y));//图片的左下角
+        uvs.Add(new Vector2(u.x, u.w));//图片的左上角
+        uvs.Add(new Vector2(u.z, u.w));//图片的右上角
+        uvs.Add(new Vector2(u.z, u.y));//图片的右下角
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+
+        //右上角的图形，图片左下对应右上，左上对应右上，右下对应左下，右上对应左上
+        verts.Add(new Vector3(upper_Right_v.z, upper_Right_v.y));//右下
+        verts.Add(new Vector3(upper_Right_v.z, upper_Right_v.w));//右上
+        verts.Add(new Vector3(upper_Right_v.x, upper_Right_v.w));//左上
+        verts.Add(new Vector3(upper_Right_v.x, upper_Right_v.y));//左下
+        uvs.Add(new Vector2(u.x, u.y));//图片的左下角
+        uvs.Add(new Vector2(u.x, u.w));//图片的左上角
+        uvs.Add(new Vector2(u.z, u.w));//图片的右上角
+        uvs.Add(new Vector2(u.z, u.y));//图片的右下角
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+
+        //右下角的图形，图片左下对应右上，左上对应右下，右上对应左下，右下对应左上
+        verts.Add(new Vector3(lower_Right_v.z, lower_Right_v.w));//右上
+        verts.Add(new Vector3(lower_Right_v.z, lower_Right_v.y));//右选
+        verts.Add(new Vector3(lower_Right_v.x, lower_Right_v.y));//左下
+        verts.Add(new Vector3(lower_Right_v.x, lower_Right_v.w));//左上
+        uvs.Add(new Vector2(u.x, u.y));//图片的左下角
+        uvs.Add(new Vector2(u.x, u.w));//图片的左上角
+        uvs.Add(new Vector2(u.z, u.w));//图片的右上角
+        uvs.Add(new Vector2(u.z, u.y));//图片的右下角
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+        cols.Add(c);
+    }
 
 	/// <summary>
 	/// Advanced sprite fill function. Contributed by Nicki Hansen.
