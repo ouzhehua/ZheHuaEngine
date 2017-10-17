@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LayerUtils
+public enum LayerEnum
 {
-    public const int Default = 0;
-    public const int UI = 5;
+    Default = 0,
+    TransparentFX = 1,
+    IgnoreRaycast = 2,
+    Water = 4,
+    UI = 5,
+    RenderShadowReciver = 8,
 }

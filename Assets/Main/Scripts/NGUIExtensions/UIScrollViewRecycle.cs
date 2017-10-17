@@ -88,7 +88,7 @@ public class UIScrollViewRecycle : MonoBehaviour
 		}
 
 		GameObject itemContainerObj = new GameObject ();
-		itemContainerObj.layer = LayerUtils.UI;	//Set To NGUI Layer
+        itemContainerObj.layer = (int)LayerEnum.UI;	//Set To NGUI Layer
 		itemContainer = itemContainerObj.AddComponent<UIWidget> ();
 		itemContainer.name = "ItemContainer";
 		itemContainer.pivot = UIWidget.Pivot.TopLeft;

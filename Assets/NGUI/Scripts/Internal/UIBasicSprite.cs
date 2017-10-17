@@ -977,7 +977,7 @@ public abstract class UIBasicSprite : UIWidget
         Vector4 upper_Right_v = new Vector4((v.x + v.z) / 2, (v.w + v.y) / 2, v.z, v.w);
         Vector4 lower_Right_v = new Vector4((v.x + v.z) / 2, v.y, v.z, (v.w + v.y) / 2);
 
-        //左上图形，图片左下对应左下，左上对应左上，右上对应右上，右下对应右下
+        //左上图形,图片左下对应左下,左上对应左上,右上对应右上,右下对应右下
         verts.Add(new Vector3(upper_Left_v.x, upper_Left_v.y));//左下
         verts.Add(new Vector3(upper_Left_v.x, upper_Left_v.w));//左上
         verts.Add(new Vector3(upper_Left_v.z, upper_Left_v.w));//右上
@@ -993,7 +993,7 @@ public abstract class UIBasicSprite : UIWidget
         cols.Add(c);
         cols.Add(c);
 
-        //左下角的图形，图片左下对应左上，左上对应左下，右下对应右上，右上对应右下
+        //左下角的图形,图片左下对应左上,左上对应左下,右下对应右上,右上对应右下
         verts.Add(new Vector3(lower_Left_v.x, lower_Left_v.w));//左上
         verts.Add(new Vector3(lower_Left_v.x, lower_Left_v.y));//左下
         verts.Add(new Vector3(lower_Left_v.z, lower_Left_v.y));//右下
@@ -1007,7 +1007,7 @@ public abstract class UIBasicSprite : UIWidget
         cols.Add(c);
         cols.Add(c);
 
-        //右上角的图形，图片左下对应右上，左上对应右上，右下对应左下，右上对应左上
+        //右上角的图形,图片左下对应右上,左上对应右上,右下对应左下,右上对应左上
         verts.Add(new Vector3(upper_Right_v.z, upper_Right_v.y));//右下
         verts.Add(new Vector3(upper_Right_v.z, upper_Right_v.w));//右上
         verts.Add(new Vector3(upper_Right_v.x, upper_Right_v.w));//左上
@@ -1021,7 +1021,7 @@ public abstract class UIBasicSprite : UIWidget
         cols.Add(c);
         cols.Add(c);
 
-        //右下角的图形，图片左下对应右上，左上对应右下，右上对应左下，右下对应左上
+        //右下角的图形,图片左下对应右上,左上对应右下,右上对应左下,右下对应左上
         verts.Add(new Vector3(lower_Right_v.z, lower_Right_v.w));//右上
         verts.Add(new Vector3(lower_Right_v.z, lower_Right_v.y));//右选
         verts.Add(new Vector3(lower_Right_v.x, lower_Right_v.y));//左下

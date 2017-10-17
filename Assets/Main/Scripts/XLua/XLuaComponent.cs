@@ -170,7 +170,7 @@ public class XLuaComponent : MonoBehaviour
 
     private IEnumerator LoadBundleLuaFiles(string path)
     {
-        var download = AssetBundle.LoadFromFileAsync(path);
+        AssetBundleCreateRequest download = AssetBundle.LoadFromFileAsync(path);
 
         yield return download;
 
