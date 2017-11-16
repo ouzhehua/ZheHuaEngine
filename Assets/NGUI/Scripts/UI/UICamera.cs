@@ -1368,9 +1368,16 @@ public class UICamera : MonoBehaviour
 		return 0;
 	}
 
+    //add by zhe hua
+    public struct HitDepthData
+    {
+        public int sortingOrder;
+        public int panelDepth;
+        public int widgetDepth;
+    }
 	struct DepthEntry
 	{
-		public int depth;
+        public HitDepthData depth;
 		public RaycastHit hit;
 		public Vector3 point;
 		public GameObject go;
@@ -1584,7 +1591,7 @@ public class UICamera : MonoBehaviour
 
 						mHit.depth = NGUITools.CalculateRaycastDepth(go);
 
-						if (mHit.depth != int.MaxValue)
+                        if (mHit.depth.widgetDepth != int.MaxValue)
 						{
 							mHit.hit = mRayHits[b];
 							mHit.point = mRayHits[b].point;
@@ -1593,7 +1600,7 @@ public class UICamera : MonoBehaviour
 						}
 					}
 
-					mHits.Sort(delegate(DepthEntry r1, DepthEntry r2) { return r2.depth.CompareTo(r1.depth); });
+                    mHits.Sort(CompareHitDataDepth);
 
 					for (int b = 0; b < mHits.size; ++b)
 					{
@@ -1710,7 +1717,7 @@ public class UICamera : MonoBehaviour
 
 							mHit.depth = NGUITools.CalculateRaycastDepth(go);
 
-							if (mHit.depth != int.MaxValue)
+                            if (mHit.depth.widgetDepth != int.MaxValue)
 							{
 								mHit.go = go;
 								mHit.point = lastWorldPosition;
@@ -1718,7 +1725,7 @@ public class UICamera : MonoBehaviour
 							}
 						}
 
-						mHits.Sort(delegate(DepthEntry r1, DepthEntry r2) { return r2.depth.CompareTo(r1.depth); });
+                        mHits.Sort(CompareHitDataDepth);
 
 						for (int b = 0; b < mHits.size; ++b)
 						{
@@ -1771,6 +1778,30 @@ public class UICamera : MonoBehaviour
 		}
 		return false;
 	}
+
+    /// <summary>
+    /// add by zhehua
+    /// sort depth by sortingOrder > panelDepth > widgetDepth
+    /// </summary>
+    private static int CompareHitDataDepth(DepthEntry r1, DepthEntry r2)
+    {
+        if (r1.depth.sortingOrder < r2.depth.sortingOrder)
+            return 1;
+        if (r1.depth.sortingOrder > r2.depth.sortingOrder)
+            return -1;
+
+        if (r1.depth.panelDepth < r2.depth.panelDepth)
+            return 1;
+        if (r1.depth.panelDepth > r2.depth.panelDepth)
+            return -1;
+
+        if (r1.depth.widgetDepth < r2.depth.widgetDepth)
+            return 1;
+        if (r1.depth.widgetDepth > r2.depth.widgetDepth)
+            return -1;
+
+        return 0;
+    }
 
 	static Plane m2DPlane = new Plane(Vector3.back, 0f);
 

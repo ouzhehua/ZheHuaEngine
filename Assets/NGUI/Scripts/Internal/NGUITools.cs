@@ -587,14 +587,19 @@ static public class NGUITools
 	/// <summary>
 	/// Calculate the game object's depth based on the widgets within, and also taking panel depth into consideration.
 	/// </summary>
-
-	static public int CalculateRaycastDepth (GameObject go)
+    // change by zhehua, change return "int" to "UICamera.HitDepthData"
+    static public UICamera.HitDepthData CalculateRaycastDepth(GameObject go)
 	{
 #if UNITY_5_5_OR_NEWER
 		UnityEngine.Profiling.Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 #else
 		Profiler.BeginSample("Editor-only GC allocation (GetComponent)");
 #endif
+        UICamera.HitDepthData hitData;
+        hitData.widgetDepth = 0;
+        hitData.panelDepth = 0;
+        hitData.sortingOrder = 0;
+
 		var w = go.GetComponent<UIWidget>();
 		
 		if (w != null)
@@ -604,7 +609,10 @@ static public class NGUITools
 #else
 			Profiler.EndSample();
 #endif
-			return w.raycastDepth;
+            hitData.widgetDepth = w.raycastDepth;
+            hitData.panelDepth = w.panel.depth;
+            hitData.sortingOrder = w.panel.sortingOrder;
+            return hitData;
 		}
 
 		var widgets = go.GetComponentsInChildren<UIWidget>();
@@ -613,17 +621,24 @@ static public class NGUITools
 #else
 		Profiler.EndSample();
 #endif
-		
-		if (widgets.Length == 0) return 0;
 
-		int depth = int.MaxValue;
+        if (widgets.Length == 0) return hitData;
+
+        hitData.widgetDepth = int.MaxValue;
 		
 		for (int i = 0, imax = widgets.Length; i < imax; ++i)
 		{
-			if (widgets[i].enabled)
-				depth = Mathf.Min(depth, widgets[i].raycastDepth);
+            if (widgets[i].enabled)
+            {
+                if (hitData.widgetDepth > widgets[i].raycastDepth)
+                {
+                    hitData.widgetDepth = widgets[i].raycastDepth;
+                    hitData.panelDepth = widgets[i].panel.depth;
+                    hitData.sortingOrder = widgets[i].panel.sortingOrder;
+                }
+            }
 		}
-		return depth;
+        return hitData;
 	}
 
 	/// <summary>
