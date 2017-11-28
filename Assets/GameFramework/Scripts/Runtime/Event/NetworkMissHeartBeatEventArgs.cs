@@ -16,14 +16,9 @@ namespace UnityGameFramework.Runtime
     public sealed class NetworkMissHeartBeatEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化网络心跳包丢失事件的新实例。
+        /// 心跳包丢失事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public NetworkMissHeartBeatEventArgs(GameFramework.Network.NetworkMissHeartBeatEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-            MissCount = e.MissCount;
-        }
+        public static readonly int EventId = typeof(NetworkMissHeartBeatEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取心跳包丢失事件编号。
@@ -32,7 +27,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.NetworkMissHeartBeat;
+                return EventId;
             }
         }
 
@@ -52,6 +47,28 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理网络心跳包丢失事件。
+        /// </summary>
+        public override void Clear()
+        {
+            NetworkChannel = default(INetworkChannel);
+            MissCount = default(int);
+        }
+
+        /// <summary>
+        /// 填充网络心跳包丢失事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>网络心跳包丢失事件。</returns>
+        public NetworkMissHeartBeatEventArgs Fill(GameFramework.Network.NetworkMissHeartBeatEventArgs e)
+        {
+            NetworkChannel = e.NetworkChannel;
+            MissCount = e.MissCount;
+
+            return this;
         }
     }
 }

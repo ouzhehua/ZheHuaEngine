@@ -16,20 +16,9 @@ namespace UnityGameFramework.Runtime
     public sealed class LoadDataTableDependencyAssetEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化加载数据表时加载依赖资源事件的新实例。
+        /// 加载数据表失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public LoadDataTableDependencyAssetEventArgs(GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs e)
-        {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
-            DataTableName = loadDataTableInfo.DataTableName;
-            DataTableType = loadDataTableInfo.DataTableType;
-            DataTableAssetName = e.DataTableAssetName;
-            DependencyAssetName = e.DependencyAssetName;
-            LoadedCount = e.LoadedCount;
-            TotalCount = e.TotalCount;
-            UserData = loadDataTableInfo.UserData;
-        }
+        public static readonly int EventId = typeof(LoadDataTableDependencyAssetEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取加载数据表失败事件编号。
@@ -38,23 +27,23 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDataTableDependencyAsset;
+                return EventId;
             }
         }
 
         /// <summary>
-        /// 获取数据表名称。
+        /// 获取数据表行的类型。
         /// </summary>
-        public string DataTableName
+        public Type DataRowType
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取数据表类型。
+        /// 获取数据表名称。
         /// </summary>
-        public Type DataTableType
+        public string DataTableName
         {
             get;
             private set;
@@ -103,6 +92,39 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理加载数据表时加载依赖资源事件。
+        /// </summary>
+        public override void Clear()
+        {
+            DataRowType = default(Type);
+            DataTableName = default(string);
+            DataTableAssetName = default(string);
+            DependencyAssetName = default(string);
+            LoadedCount = default(int);
+            TotalCount = default(int);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充加载数据表时加载依赖资源事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>加载数据表时加载依赖资源事件。</returns>
+        public LoadDataTableDependencyAssetEventArgs Fill(GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs e)
+        {
+            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
+            DataRowType = loadDataTableInfo.DataRowType;
+            DataTableName = loadDataTableInfo.DataTableName;
+            DataTableAssetName = e.DataTableAssetName;
+            DependencyAssetName = e.DependencyAssetName;
+            LoadedCount = e.LoadedCount;
+            TotalCount = e.TotalCount;
+            UserData = loadDataTableInfo.UserData;
+
+            return this;
         }
     }
 }

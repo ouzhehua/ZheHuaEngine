@@ -15,15 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class LoadSceneSuccessEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化加载场景成功事件的新实例。
+        /// 加载场景成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public LoadSceneSuccessEventArgs(GameFramework.Scene.LoadSceneSuccessEventArgs e)
-        {
-            SceneAssetName = e.SceneAssetName;
-            Duration = e.Duration;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(LoadSceneSuccessEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取加载场景成功事件编号。
@@ -32,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadSceneSuccess;
+                return EventId;
             }
         }
 
@@ -61,6 +55,30 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理加载场景成功事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SceneAssetName = default(string);
+            Duration = default(float);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充加载场景成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>加载场景成功事件。</returns>
+        public LoadSceneSuccessEventArgs Fill(GameFramework.Scene.LoadSceneSuccessEventArgs e)
+        {
+            SceneAssetName = e.SceneAssetName;
+            Duration = e.Duration;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }

@@ -15,17 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class LoadDictionaryFailureEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化加载字典失败事件的新实例。
+        /// 加载字典失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public LoadDictionaryFailureEventArgs(GameFramework.Localization.LoadDictionaryFailureEventArgs e)
-        {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
-            DictionaryName = loadDictionaryInfo.DictionaryName;
-            DictionaryAssetName = e.DictionaryAssetName;
-            ErrorMessage = e.ErrorMessage;
-            UserData = loadDictionaryInfo.UserData;
-        }
+        public static readonly int EventId = typeof(LoadDictionaryFailureEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取加载字典失败事件编号。
@@ -34,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDictionaryFailure;
+                return EventId;
             }
         }
 
@@ -72,6 +64,33 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理加载字典失败事件。
+        /// </summary>
+        public override void Clear()
+        {
+            DictionaryName = default(string);
+            DictionaryAssetName = default(string);
+            ErrorMessage = default(string);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充加载字典失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>加载字典失败事件。</returns>
+        public LoadDictionaryFailureEventArgs Fill(GameFramework.Localization.LoadDictionaryFailureEventArgs e)
+        {
+            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
+            DictionaryName = loadDictionaryInfo.DictionaryName;
+            DictionaryAssetName = e.DictionaryAssetName;
+            ErrorMessage = e.ErrorMessage;
+            UserData = loadDictionaryInfo.UserData;
+
+            return this;
         }
     }
 }

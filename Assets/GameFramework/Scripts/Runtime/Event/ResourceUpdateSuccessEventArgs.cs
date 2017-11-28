@@ -15,17 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class ResourceUpdateSuccessEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化资源更新成功事件的新实例。
+        /// 资源更新成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public ResourceUpdateSuccessEventArgs(GameFramework.Resource.ResourceUpdateSuccessEventArgs e)
-        {
-            Name = e.Name;
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-            Length = e.Length;
-            ZipLength = e.ZipLength;
-        }
+        public static readonly int EventId = typeof(ResourceUpdateSuccessEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取资源更新成功事件编号。
@@ -34,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ResourceUpdateSuccess;
+                return EventId;
             }
         }
 
@@ -81,6 +73,34 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理资源更新成功事件。
+        /// </summary>
+        public override void Clear()
+        {
+            Name = default(string);
+            DownloadPath = default(string);
+            DownloadUri = default(string);
+            Length = default(int);
+            ZipLength = default(int);
+        }
+
+        /// <summary>
+        /// 填充资源更新成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>资源更新成功事件。</returns>
+        public ResourceUpdateSuccessEventArgs Fill(GameFramework.Resource.ResourceUpdateSuccessEventArgs e)
+        {
+            Name = e.Name;
+            DownloadPath = e.DownloadPath;
+            DownloadUri = e.DownloadUri;
+            Length = e.Length;
+            ZipLength = e.ZipLength;
+
+            return this;
         }
     }
 }

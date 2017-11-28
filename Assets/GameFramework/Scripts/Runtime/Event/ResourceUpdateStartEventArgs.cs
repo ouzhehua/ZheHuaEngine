@@ -15,18 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class ResourceUpdateStartEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化资源更新开始事件的新实例。
+        /// 资源更新开始事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public ResourceUpdateStartEventArgs(GameFramework.Resource.ResourceUpdateStartEventArgs e)
-        {
-            Name = e.Name;
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-            CurrentLength = e.CurrentLength;
-            ZipLength = e.ZipLength;
-            RetryCount = e.RetryCount;
-        }
+        public static readonly int EventId = typeof(ResourceUpdateStartEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取资源更新开始事件编号。
@@ -35,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ResourceUpdateStart;
+                return EventId;
             }
         }
 
@@ -91,6 +82,36 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理资源更新开始事件。
+        /// </summary>
+        public override void Clear()
+        {
+            Name = default(string);
+            DownloadPath = default(string);
+            DownloadUri = default(string);
+            CurrentLength = default(int);
+            ZipLength = default(int);
+            RetryCount = default(int);
+        }
+
+        /// <summary>
+        /// 填充资源更新开始事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>资源更新开始事件。</returns>
+        public ResourceUpdateStartEventArgs Fill(GameFramework.Resource.ResourceUpdateStartEventArgs e)
+        {
+            Name = e.Name;
+            DownloadPath = e.DownloadPath;
+            DownloadUri = e.DownloadUri;
+            CurrentLength = e.CurrentLength;
+            ZipLength = e.ZipLength;
+            RetryCount = e.RetryCount;
+
+            return this;
         }
     }
 }

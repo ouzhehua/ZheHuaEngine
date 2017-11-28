@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using GameFramework.Setting;
+using System;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -16,9 +17,16 @@ namespace UnityGameFramework.Runtime
     public abstract class SettingHelperBase : MonoBehaviour, ISettingHelper
     {
         /// <summary>
+        /// 加载配置。
+        /// </summary>
+        /// <returns>是否加载配置成功。</returns>
+        public abstract bool Load();
+
+        /// <summary>
         /// 保存配置。
         /// </summary>
-        public abstract void Save();
+        /// <returns>是否保存配置成功。</returns>
+        public abstract bool Save();
 
         /// <summary>
         /// 检查是否存在指定配置项。
@@ -137,11 +145,28 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 从指定配置项中读取对象。
         /// </summary>
+        /// <param name="objectType">要读取对象的类型。</param>
+        /// <param name="key">要获取配置项的名称。</param>
+        /// <returns></returns>
+        public abstract object GetObject(Type objectType, string key);
+
+        /// <summary>
+        /// 从指定配置项中读取对象。
+        /// </summary>
         /// <typeparam name="T">要读取对象的类型。</typeparam>
         /// <param name="key">要获取配置项的名称。</param>
         /// <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
         /// <returns>读取的对象。</returns>
         public abstract T GetObject<T>(string key, T defaultObj);
+
+        /// <summary>
+        /// 从指定配置项中读取对象。
+        /// </summary>
+        /// <param name="objectType">要读取对象的类型。</param>
+        /// <param name="key">要获取配置项的名称。</param>
+        /// <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
+        /// <returns></returns>
+        public abstract object GetObject(Type objectType, string key, object defaultObj);
 
         /// <summary>
         /// 向指定配置项写入对象。
@@ -150,5 +175,12 @@ namespace UnityGameFramework.Runtime
         /// <param name="key">要写入配置项的名称。</param>
         /// <param name="obj">要写入的对象。</param>
         public abstract void SetObject<T>(string key, T obj);
+
+        /// <summary>
+        /// 向指定配置项写入对象。
+        /// </summary>
+        /// <param name="key">要写入配置项的名称。</param>
+        /// <param name="obj">要写入的对象。</param>
+        public abstract void SetObject(string key, object obj);
     }
 }

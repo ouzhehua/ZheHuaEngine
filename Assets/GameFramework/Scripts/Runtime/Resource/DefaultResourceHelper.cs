@@ -36,7 +36,14 @@ namespace UnityGameFramework.Runtime
         public override void UnloadScene(string sceneAssetName, UnloadSceneCallbacks unloadSceneCallbacks, object userData)
         {
 #if UNITY_5_5_OR_NEWER
-            StartCoroutine(UnloadSceneCo(sceneAssetName, unloadSceneCallbacks, userData));
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(UnloadSceneCo(sceneAssetName, unloadSceneCallbacks, userData));
+            }
+            else
+            {
+                SceneManager.UnloadSceneAsync(SceneComponent.GetSceneName(sceneAssetName));
+            }
 #else
             if (SceneManager.UnloadScene(SceneComponent.GetSceneName(sceneAssetName)))
             {
@@ -115,7 +122,7 @@ namespace UnityGameFramework.Runtime
 #if UNITY_5_5_OR_NEWER
         private IEnumerator UnloadSceneCo(string sceneAssetName, UnloadSceneCallbacks unloadSceneCallbacks, object userData)
         {
-            AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(sceneAssetName);
+            AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(SceneComponent.GetSceneName(sceneAssetName));
             if (asyncOperation == null)
             {
                 yield break;

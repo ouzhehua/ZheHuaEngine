@@ -16,18 +16,9 @@ namespace UnityGameFramework.Runtime
     public sealed class LoadDataTableFailureEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化加载数据表失败事件的新实例。
+        /// 加载数据表失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public LoadDataTableFailureEventArgs(GameFramework.DataTable.LoadDataTableFailureEventArgs e)
-        {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
-            DataTableName = loadDataTableInfo.DataTableName;
-            DataTableType = loadDataTableInfo.DataTableType;
-            DataTableAssetName = e.DataTableAssetName;
-            ErrorMessage = e.ErrorMessage;
-            UserData = loadDataTableInfo.UserData;
-        }
+        public static readonly int EventId = typeof(LoadDataTableFailureEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取加载数据表失败事件编号。
@@ -36,23 +27,23 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDataTableFailure;
+                return EventId;
             }
         }
 
         /// <summary>
-        /// 获取数据表名称。
+        /// 获取数据表行的类型。
         /// </summary>
-        public string DataTableName
+        public Type DataRowType
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取数据表类型。
+        /// 获取数据表名称。
         /// </summary>
-        public Type DataTableType
+        public string DataTableName
         {
             get;
             private set;
@@ -83,6 +74,35 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理加载数据表失败事件。
+        /// </summary>
+        public override void Clear()
+        {
+            DataRowType = default(Type);
+            DataTableName = default(string);
+            DataTableAssetName = default(string);
+            ErrorMessage = default(string);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充加载数据表失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>加载数据表失败事件。</returns>
+        public LoadDataTableFailureEventArgs Fill(GameFramework.DataTable.LoadDataTableFailureEventArgs e)
+        {
+            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
+            DataRowType = loadDataTableInfo.DataRowType;
+            DataTableName = loadDataTableInfo.DataTableName;
+            DataTableAssetName = e.DataTableAssetName;
+            ErrorMessage = e.ErrorMessage;
+            UserData = loadDataTableInfo.UserData;
+
+            return this;
         }
     }
 }

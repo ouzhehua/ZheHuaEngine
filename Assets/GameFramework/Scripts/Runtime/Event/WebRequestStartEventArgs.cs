@@ -15,16 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class WebRequestStartEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化 Web 请求开始事件的新实例。
+        /// Web 请求开始事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public WebRequestStartEventArgs(GameFramework.WebRequest.WebRequestStartEventArgs e)
-        {
-            WWWFormInfo wwwFormInfo = (WWWFormInfo)e.UserData;
-            SerialId = e.SerialId;
-            WebRequestUri = e.WebRequestUri;
-            UserData = wwwFormInfo.UserData;
-        }
+        public static readonly int EventId = typeof(WebRequestStartEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取 Web 请求开始事件编号。
@@ -33,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.WebRequestStart;
+                return EventId;
             }
         }
 
@@ -62,6 +55,31 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理 Web 请求开始事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SerialId = default(int);
+            WebRequestUri = default(string);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充 Web 请求开始事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>Web 请求开始事件。</returns>
+        public WebRequestStartEventArgs Fill(GameFramework.WebRequest.WebRequestStartEventArgs e)
+        {
+            WWWFormInfo wwwFormInfo = (WWWFormInfo)e.UserData;
+            SerialId = e.SerialId;
+            WebRequestUri = e.WebRequestUri;
+            UserData = wwwFormInfo.UserData;
+
+            return this;
         }
     }
 }

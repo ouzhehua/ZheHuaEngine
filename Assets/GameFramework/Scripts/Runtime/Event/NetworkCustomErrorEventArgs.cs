@@ -16,14 +16,9 @@ namespace UnityGameFramework.Runtime
     public sealed class NetworkCustomErrorEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化用户自定义网络错误事件的新实例。
+        /// 用户自定义网络错误事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public NetworkCustomErrorEventArgs(GameFramework.Network.NetworkCustomErrorEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-            CustomErrorData = e.CustomErrorData;
-        }
+        public static readonly int EventId = typeof(NetworkCustomErrorEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取用户自定义网络错误事件编号。
@@ -32,7 +27,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.NetworkCustomError;
+                return EventId;
             }
         }
 
@@ -52,6 +47,28 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理用户自定义网络错误事件。
+        /// </summary>
+        public override void Clear()
+        {
+            NetworkChannel = default(INetworkChannel);
+            CustomErrorData = default(object);
+        }
+
+        /// <summary>
+        /// 填充用户自定义网络错误事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>用户自定义网络错误事件。</returns>
+        public NetworkCustomErrorEventArgs Fill(GameFramework.Network.NetworkCustomErrorEventArgs e)
+        {
+            NetworkChannel = e.NetworkChannel;
+            CustomErrorData = e.CustomErrorData;
+
+            return this;
         }
     }
 }

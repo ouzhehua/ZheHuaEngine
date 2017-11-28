@@ -15,17 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class WebRequestFailureEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化 Web 请求失败事件的新实例。
+        /// Web 请求失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public WebRequestFailureEventArgs(GameFramework.WebRequest.WebRequestFailureEventArgs e)
-        {
-            WWWFormInfo wwwFormInfo = (WWWFormInfo)e.UserData;
-            SerialId = e.SerialId;
-            WebRequestUri = e.WebRequestUri;
-            ErrorMessage = e.ErrorMessage;
-            UserData = wwwFormInfo.UserData;
-        }
+        public static readonly int EventId = typeof(WebRequestFailureEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取 Web 请求失败事件编号。
@@ -34,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.WebRequestFailure;
+                return EventId;
             }
         }
 
@@ -73,5 +65,33 @@ namespace UnityGameFramework.Runtime
             get;
             private set;
         }
+
+        /// <summary>
+        /// 清理 Web 请求失败事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SerialId = default(int);
+            WebRequestUri = default(string);
+            ErrorMessage = default(string);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充 Web 请求失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>Web 请求失败事件。</returns>
+        public WebRequestFailureEventArgs Fill(GameFramework.WebRequest.WebRequestFailureEventArgs e)
+        {
+            WWWFormInfo wwwFormInfo = (WWWFormInfo)e.UserData;
+            SerialId = e.SerialId;
+            WebRequestUri = e.WebRequestUri;
+            ErrorMessage = e.ErrorMessage;
+            UserData = wwwFormInfo.UserData;
+
+            return this;
+        }
+
     }
 }

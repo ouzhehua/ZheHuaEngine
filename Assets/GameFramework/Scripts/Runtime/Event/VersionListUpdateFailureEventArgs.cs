@@ -15,14 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class VersionListUpdateFailureEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化版本资源列表更新失败事件的新实例。
+        /// 版本资源列表更新失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public VersionListUpdateFailureEventArgs(GameFramework.Resource.VersionListUpdateFailureEventArgs e)
-        {
-            DownloadUri = e.DownloadUri;
-            ErrorMessage = e.ErrorMessage;
-        }
+        public static readonly int EventId = typeof(VersionListUpdateFailureEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取版本资源列表更新失败事件编号。
@@ -31,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.VersionListUpdateFailure;
+                return EventId;
             }
         }
 
@@ -51,6 +46,28 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理版本资源列表更新失败事件。
+        /// </summary>
+        public override void Clear()
+        {
+            DownloadUri = default(string);
+            ErrorMessage = default(string);
+        }
+
+        /// <summary>
+        /// 填充版本资源列表更新失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>版本资源列表更新失败事件。</returns>
+        public VersionListUpdateFailureEventArgs Fill(GameFramework.Resource.VersionListUpdateFailureEventArgs e)
+        {
+            DownloadUri = e.DownloadUri;
+            ErrorMessage = e.ErrorMessage;
+
+            return this;
         }
     }
 }

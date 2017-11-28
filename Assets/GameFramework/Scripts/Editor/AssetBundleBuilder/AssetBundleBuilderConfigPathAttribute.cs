@@ -5,15 +5,12 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
-using System;
-
-namespace GameFramework
+namespace UnityGameFramework.Editor.AssetBundleTools
 {
     /// <summary>
-    /// 避免被注入性能采样代码的标记。
+    /// AssetBundleBuilder 配置路径属性。
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property)]
-    public sealed class DontProfileAttribute : Attribute
+    public sealed class AssetBundleBuilderConfigPathAttribute : ConfigPathAttribute
     {
 
     }

@@ -27,21 +27,18 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 默认调试器窗口大小。
         /// </summary>
-        internal static readonly Rect DefaultWindowRect = new Rect(0f, 0f, 640f, 480f);
+        internal static readonly Rect DefaultWindowRect = new Rect(10f, 10f, 640f, 480f);
 
         /// <summary>
         /// 默认调试器窗口缩放比例。
         /// </summary>
-        internal static readonly float DefaultWindowScaleW = Screen.width / 640f;
-        internal static readonly float DefaultWindowScaleH = Screen.height / 480f;
-
+        internal static readonly float DefaultWindowScale = 1f;
 
         private IDebuggerManager m_DebuggerManager = null;
         private Rect m_DragRect = new Rect(0f, 0f, float.MaxValue, 25f);
         private Rect m_IconRect = DefaultIconRect;
         private Rect m_WindowRect = DefaultWindowRect;
-        private float m_WindowScaleH = DefaultWindowScaleH;
-        private float m_WindowScaleW = DefaultWindowScaleW;
+        private float m_WindowScale = DefaultWindowScale;
 
         [SerializeField]
         private GUISkin m_Skin = null;
@@ -82,9 +79,8 @@ namespace UnityGameFramework.Runtime
         private RuntimeMemoryInformationWindow<Component> m_RuntimeMemoryComponentInformationWindow = new RuntimeMemoryInformationWindow<Component>();
         private ObjectPoolInformationWindow m_ObjectPoolInformationWindow = new ObjectPoolInformationWindow();
 
-        private GeneralSettingsWindow m_GeneralSettingsWindow = new GeneralSettingsWindow();
-        private QualitySettingsWindow m_QualitySettingsWindow = new QualitySettingsWindow();
-        private OperationSettingsWindow m_OperationSettingsWindow = new OperationSettingsWindow();
+        private SettingsWindow m_SettingsWindow = new SettingsWindow();
+        private OperationsWindow m_OperationsWindow = new OperationsWindow();
 
         private FpsCounter m_FpsCounter = null;
 
@@ -156,11 +152,11 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return m_WindowScaleW;
+                return m_WindowScale;
             }
             set
             {
-                m_WindowScaleW = value;
+                m_WindowScale = value;
             }
         }
 
@@ -222,9 +218,8 @@ namespace UnityGameFramework.Runtime
             {
                 RegisterDebuggerWindow("Profiler/Object Pool", m_ObjectPoolInformationWindow);
             }
-            RegisterDebuggerWindow("Settings/General", m_GeneralSettingsWindow);
-            RegisterDebuggerWindow("Settings/Quality", m_QualitySettingsWindow);
-            RegisterDebuggerWindow("Settings/Operation", m_OperationSettingsWindow);
+            RegisterDebuggerWindow("Other/Settings", m_SettingsWindow);
+            RegisterDebuggerWindow("Other/Operations", m_OperationsWindow);
         }
 
         private void Update()
@@ -243,7 +238,7 @@ namespace UnityGameFramework.Runtime
             Matrix4x4 cachedMatrix = GUI.matrix;
 
             GUI.skin = m_Skin;
-            GUI.matrix = Matrix4x4.Scale(new Vector3(m_WindowScaleW, m_WindowScaleH, 1f));
+            GUI.matrix = Matrix4x4.Scale(new Vector3(m_WindowScale, m_WindowScale, 1f));
 
             if (m_ShowFullWindow)
             {

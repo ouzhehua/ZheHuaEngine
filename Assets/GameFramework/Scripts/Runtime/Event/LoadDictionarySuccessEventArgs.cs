@@ -15,17 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class LoadDictionarySuccessEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化加载字典成功事件的新实例。
+        /// 加载字典成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public LoadDictionarySuccessEventArgs(GameFramework.Localization.LoadDictionarySuccessEventArgs e)
-        {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
-            DictionaryName = loadDictionaryInfo.DictionaryName;
-            DictionaryAssetName = e.DictionaryAssetName;
-            Duration = e.Duration;
-            UserData = loadDictionaryInfo.UserData;
-        }
+        public static readonly int EventId = typeof(LoadDictionarySuccessEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取加载字典成功事件编号。
@@ -34,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDictionarySuccess;
+                return EventId;
             }
         }
 
@@ -72,6 +64,33 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理加载字典成功事件。
+        /// </summary>
+        public override void Clear()
+        {
+            DictionaryName = default(string);
+            DictionaryAssetName = default(string);
+            Duration = default(float);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充加载字典成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>加载字典成功事件。</returns>
+        public LoadDictionarySuccessEventArgs Fill(GameFramework.Localization.LoadDictionarySuccessEventArgs e)
+        {
+            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
+            DictionaryName = loadDictionaryInfo.DictionaryName;
+            DictionaryAssetName = e.DictionaryAssetName;
+            Duration = e.Duration;
+            UserData = loadDictionaryInfo.UserData;
+
+            return this;
         }
     }
 }

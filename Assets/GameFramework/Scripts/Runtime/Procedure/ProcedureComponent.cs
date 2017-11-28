@@ -10,7 +10,6 @@ using GameFramework.Fsm;
 using GameFramework.Procedure;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -62,7 +61,7 @@ namespace UnityGameFramework.Runtime
             ProcedureBase[] procedures = new ProcedureBase[m_AvailableProcedureTypeNames.Length];
             for (int i = 0; i < m_AvailableProcedureTypeNames.Length; i++)
             {
-                Type procedureType = Utility.Assembly.GetTypeWithinLoadedAssemblies(m_AvailableProcedureTypeNames[i]);
+                Type procedureType = Utility.Assembly.GetType(m_AvailableProcedureTypeNames[i]);
                 if (procedureType == null)
                 {
                     Log.Error("Can not find procedure type '{0}'.", m_AvailableProcedureTypeNames[i]);
@@ -113,11 +112,6 @@ namespace UnityGameFramework.Runtime
         public ProcedureBase GetProcedure<T>() where T : ProcedureBase
         {
             return m_ProcedureManager.GetProcedure<T>();
-        }
-
-        private void AvoidJIT()
-        {
-            new Dictionary<int, FsmEventHandler<IProcedureManager>>();
         }
     }
 }

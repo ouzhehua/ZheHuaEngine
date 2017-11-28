@@ -15,15 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class OpenUIFormSuccessEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化打开界面成功事件的新实例。
+        /// 打开界面成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public OpenUIFormSuccessEventArgs(GameFramework.UI.OpenUIFormSuccessEventArgs e)
-        {
-            UIForm = (UIForm)e.UIForm;
-            Duration = e.Duration;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(OpenUIFormSuccessEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取打开界面成功事件编号。
@@ -32,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.OpenUIFormSuccess;
+                return EventId;
             }
         }
 
@@ -61,6 +55,30 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理打开界面成功事件。
+        /// </summary>
+        public override void Clear()
+        {
+            UIForm = default(UIForm);
+            Duration = default(float);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充打开界面成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>打开界面成功事件。</returns>
+        public OpenUIFormSuccessEventArgs Fill(GameFramework.UI.OpenUIFormSuccessEventArgs e)
+        {
+            UIForm = (UIForm)e.UIForm;
+            Duration = e.Duration;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }

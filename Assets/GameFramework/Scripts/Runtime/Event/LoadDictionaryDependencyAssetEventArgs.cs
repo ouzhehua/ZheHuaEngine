@@ -15,19 +15,9 @@ namespace UnityGameFramework.Runtime
     public sealed class LoadDictionaryDependencyAssetEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化加载字典时加载依赖资源事件的新实例。
+        /// 加载字典失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public LoadDictionaryDependencyAssetEventArgs(GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs e)
-        {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
-            DictionaryName = loadDictionaryInfo.DictionaryName;
-            DictionaryAssetName = e.DictionaryAssetName;
-            DependencyAssetName = e.DependencyAssetName;
-            LoadedCount = e.LoadedCount;
-            TotalCount = e.TotalCount;
-            UserData = loadDictionaryInfo.UserData;
-        }
+        public static readonly int EventId = typeof(LoadDictionaryDependencyAssetEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取加载字典失败事件编号。
@@ -36,7 +26,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDictionaryDependencyAsset;
+                return EventId;
             }
         }
 
@@ -92,6 +82,37 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理加载字典时加载依赖资源事件。
+        /// </summary>
+        public override void Clear()
+        {
+            DictionaryName = default(string);
+            DictionaryAssetName = default(string);
+            DependencyAssetName = default(string);
+            LoadedCount = default(int);
+            TotalCount = default(int);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充加载字典时加载依赖资源事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>加载字典时加载依赖资源事件。</returns>
+        public LoadDictionaryDependencyAssetEventArgs Fill(GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs e)
+        {
+            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
+            DictionaryName = loadDictionaryInfo.DictionaryName;
+            DictionaryAssetName = e.DictionaryAssetName;
+            DependencyAssetName = e.DependencyAssetName;
+            LoadedCount = e.LoadedCount;
+            TotalCount = e.TotalCount;
+            UserData = loadDictionaryInfo.UserData;
+
+            return this;
         }
     }
 }

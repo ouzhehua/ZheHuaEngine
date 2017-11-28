@@ -33,9 +33,8 @@ namespace UnityGameFramework.Runtime
         [SerializeField]
         private Language m_EditorLanguage = Language.Unspecified;
 
-        //add by zhehua
         [SerializeField]
-        private bool m_DebugLogEnable = true;
+        private string m_LogHelperTypeName = "UnityGameFramework.Runtime.LogHelper";
 
         [SerializeField]
         private string m_ZipHelperTypeName = "UnityGameFramework.Runtime.ZipHelper";
@@ -128,21 +127,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取或设置游戏支持Log。
-        /// </summary>
-        public bool DebugLogEnable
-        {
-            get
-            {
-                return m_DebugLogEnable;
-            }
-            set
-            {
-                Debug.unityLogger.logEnabled = m_DebugLogEnable = value;
-            }
-        }
-
-        /// <summary>
         /// 获取或设置游戏帧率。
         /// </summary>
         public int FrameRate
@@ -232,8 +216,7 @@ namespace UnityGameFramework.Runtime
         {
             base.Awake();
 
-            Log.SetLogCallback(LogCallback);
-
+            InitLogHelper();
             Log.Info("Game Framework version is {0}. Unity Game Framework version is {1}.", GameFrameworkEntry.Version, GameEntry.Version);
 
 #if UNITY_5_3_OR_NEWER || UNITY_5_3
@@ -257,7 +240,6 @@ namespace UnityGameFramework.Runtime
             Time.timeScale = m_GameSpeed;
             Application.runInBackground = m_RunInBackground;
             Screen.sleepTimeout = m_NeverSleep ? SleepTimeout.NeverSleep : SleepTimeout.SystemSetting;
-            Debug.unityLogger.logEnabled = m_DebugLogEnable;
 #else
             Log.Error("Game Framework only applies with Unity 5.3 and above, but current Unity version is {0}.", Application.unityVersion);
             GameEntry.Shutdown(ShutdownType.Quit);
@@ -330,6 +312,28 @@ namespace UnityGameFramework.Runtime
             Destroy(gameObject);
         }
 
+        private void InitLogHelper()
+        {
+            if (string.IsNullOrEmpty(m_LogHelperTypeName))
+            {
+                return;
+            }
+
+            Type logHelperType = Utility.Assembly.GetType(m_LogHelperTypeName);
+            if (logHelperType == null)
+            {
+                throw new GameFrameworkException(string.Format("Can not find log helper type '{0}'.", m_LogHelperTypeName));
+            }
+
+            Log.ILogHelper logHelper = (Log.ILogHelper)Activator.CreateInstance(logHelperType);
+            if (logHelper == null)
+            {
+                throw new GameFrameworkException(string.Format("Can not create log helper instance '{0}'.", m_LogHelperTypeName));
+            }
+
+            Log.SetLogHelper(logHelper);
+        }
+
         private void InitZipHelper()
         {
             if (string.IsNullOrEmpty(m_ZipHelperTypeName))
@@ -337,7 +341,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Type zipHelperType = Utility.Assembly.GetTypeWithinLoadedAssemblies(m_ZipHelperTypeName);
+            Type zipHelperType = Utility.Assembly.GetType(m_ZipHelperTypeName);
             if (zipHelperType == null)
             {
                 Log.Error("Can not find Zip helper type '{0}'.", m_ZipHelperTypeName);
@@ -361,7 +365,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Type jsonHelperType = Utility.Assembly.GetTypeWithinLoadedAssemblies(m_JsonHelperTypeName);
+            Type jsonHelperType = Utility.Assembly.GetType(m_JsonHelperTypeName);
             if (jsonHelperType == null)
             {
                 Log.Error("Can not find JSON helper type '{0}'.", m_JsonHelperTypeName);
@@ -385,7 +389,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Type profilerHelperType = Utility.Assembly.GetTypeWithinLoadedAssemblies(m_ProfilerHelperTypeName);
+            Type profilerHelperType = Utility.Assembly.GetType(m_ProfilerHelperTypeName);
             if (profilerHelperType == null)
             {
                 Log.Error("Can not find profiler helper type '{0}'.", m_ProfilerHelperTypeName);
@@ -400,27 +404,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Utility.Profiler.SetProfilerHelper(profilerHelper);
-        }
-
-        private void LogCallback(LogLevel level, object message)
-        {
-            switch (level)
-            {
-                case LogLevel.Debug:
-                    Debug.Log(string.Format("<color=#888888>{0}</color>", message.ToString()));
-                    break;
-                case LogLevel.Info:
-                    Debug.Log(message.ToString());
-                    break;
-                case LogLevel.Warning:
-                    Debug.LogWarning(message.ToString());
-                    break;
-                case LogLevel.Error:
-                    Debug.LogError(message.ToString());
-                    break;
-                default:
-                    throw new GameFrameworkException(message.ToString());
-            }
         }
 
         private void OnLowMemory()

@@ -16,14 +16,9 @@ namespace UnityGameFramework.Runtime
     public sealed class NetworkConnectedEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化网络连接成功事件的新实例。
+        /// 连接成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public NetworkConnectedEventArgs(GameFramework.Network.NetworkConnectedEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(NetworkConnectedEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取连接成功事件编号。
@@ -32,7 +27,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.NetworkConnected;
+                return EventId;
             }
         }
 
@@ -52,6 +47,28 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理网络连接成功事件。
+        /// </summary>
+        public override void Clear()
+        {
+            NetworkChannel = default(INetworkChannel);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充网络连接成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>网络连接成功事件。</returns>
+        public NetworkConnectedEventArgs Fill(GameFramework.Network.NetworkConnectedEventArgs e)
+        {
+            NetworkChannel = e.NetworkChannel;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }

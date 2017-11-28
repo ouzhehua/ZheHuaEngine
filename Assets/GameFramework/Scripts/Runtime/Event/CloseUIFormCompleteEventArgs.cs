@@ -16,16 +16,9 @@ namespace UnityGameFramework.Runtime
     public sealed class CloseUIFormCompleteEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 初始化关闭界面完成事件的新实例。
+        /// 关闭界面完成事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public CloseUIFormCompleteEventArgs(GameFramework.UI.CloseUIFormCompleteEventArgs e)
-        {
-            SerialId = e.SerialId;
-            UIFormAssetName = e.UIFormAssetName;
-            UIGroup = e.UIGroup;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(CloseUIFormCompleteEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取关闭界面完成事件编号。
@@ -34,7 +27,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.CloseUIFormComplete;
+                return EventId;
             }
         }
 
@@ -72,6 +65,32 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理关闭界面完成事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SerialId = default(int);
+            UIFormAssetName = default(string);
+            UIGroup = default(IUIGroup);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充关闭界面完成事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>关闭界面完成事件。</returns>
+        public CloseUIFormCompleteEventArgs Fill(GameFramework.UI.CloseUIFormCompleteEventArgs e)
+        {
+            SerialId = e.SerialId;
+            UIFormAssetName = e.UIFormAssetName;
+            UIGroup = e.UIGroup;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }
