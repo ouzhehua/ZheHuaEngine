@@ -439,21 +439,6 @@ public class UIWidget : UIRect
 	}
 
 	/// <summary>
-	/// Raycast depth order on widgets takes the depth of their panel into consideration.
-	/// This functionality is used to determine the "final" depth of the widget for drawing and raycasts.
-	/// </summary>
-	public int raycastDepth
-	{
-		get
-		{
-			if (panel == null) CreatePanel();
-            //zhehua change , just ensure panel exist , and return mDepth
-            //return (panel != null) ? mDepth + panel.depth * 1000 : mDepth;
-            return mDepth;
-		}
-	}
-
-	/// <summary>
 	/// Local space corners of the widget. The order is bottom-left, top-left, top-right, bottom-right.
 	/// </summary>
 
