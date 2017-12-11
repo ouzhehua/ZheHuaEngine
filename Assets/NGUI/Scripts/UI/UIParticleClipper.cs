@@ -22,7 +22,7 @@ public class UIParticleClipperEditor : Editor
 
         if (GUILayout.Button("ReBuild"))
         {
-            self.BuildAndRun(self.useCacheParticlesOnBuild, self.needReplaceShaderOnBuild);
+            self.BuildSyncDataAndRunCoroutine(self.useCacheParticlesOnBuild, self.needReplaceShaderOnBuild);
         }
     }
 }
@@ -98,7 +98,7 @@ public class UIParticleClipper : MonoBehaviour
         if (m_targetPanel.clipping != UIDrawCall.Clipping.SoftClip)
             throw new InvalidOperationException("Don't need to clip");
 
-        BuildAndRun(useCacheParticlesOnBuild, needReplaceShaderOnBuild);
+        BuildSyncDataAndRunCoroutine(useCacheParticlesOnBuild, needReplaceShaderOnBuild);
     }
 
     Coroutine _syncClipRangeCoroutine;
@@ -170,57 +170,118 @@ public class UIParticleClipper : MonoBehaviour
     {
         CalcClipRange();
 
-        int materialsCount = _cacheSyncData.Count - 1;
-        for (int i = materialsCount; i >= 0; i--)
+        var enumerator = _cacheSyncData.GetEnumerator();
+        List<Material> removeKeys = null;
+        while (enumerator.MoveNext())
         {
-            if (_cacheSyncData[i].renderer == null)
+            int gameObjectsCount = enumerator.Current.Value.gameObjects.Count;
+            if (gameObjectsCount == 0)
             {
-                _cacheSyncData.RemoveAt(i);
+                if (removeKeys == null)
+                {
+                    removeKeys = new List<Material>();
+                }
+                removeKeys.Add(enumerator.Current.Key);
+                continue;
             }
-            else if (_cacheSyncData[i].gameObject.activeInHierarchy)
+
+            bool syncTestPass = false;
+            for (int i = gameObjectsCount - 1; i >= 0; i--)
             {
-                _cacheSyncData[i].material.SetVector("_ClipRange0", _clipRange);
-                _cacheSyncData[i].material.SetVector("_ClipArgs0", _clipArgs);
+                if (enumerator.Current.Value.gameObjects[i].gameObject == null)
+                {
+                    enumerator.Current.Value.gameObjects.RemoveAt(i);
+                }
+                else if (enumerator.Current.Value.gameObjects[i].gameObject.activeInHierarchy)
+                {
+                    syncTestPass = true;
+                }
+            }
+
+            if (syncTestPass)
+            {
+                enumerator.Current.Value.material.SetVector("_ClipRange0", _clipRange);
+                enumerator.Current.Value.material.SetVector("_ClipArgs0", _clipArgs);
+            }
+        }
+
+        if (removeKeys != null && removeKeys.Count > 0)
+        {
+            for (int i = 0; i < removeKeys.Count; i++)
+            {
+                _cacheSyncData.Remove(removeKeys[i]);
             }
         }
     }
 
     struct SyncData
     {
-        public Renderer renderer;
         public Material material;
-        public GameObject gameObject;
+        public List<GameObject> gameObjects;
     }
-    List<SyncData> _cacheSyncData = new List<SyncData>();
+
+    Dictionary<Material, SyncData> _cacheSyncData = new Dictionary<Material, SyncData>();
     /// <summary>
     /// 创建刷新数据并运行协程。替换Shader和缓存材质。Start时会主动调用一次, Panel下子节点有变化时手动调用
     /// </summary>
     /// <param name="replaceShader">是否顺便替换shader</param>
-    public void BuildAndRun(bool useCacheParticles, bool needReplaceShader)
+    public void BuildSyncDataAndRunCoroutine(bool useCacheParticles, bool needReplaceShader)
     {
+        //重置缓存同步数据
+        var enumerator = _cacheSyncData.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            for (int i = 0; i < enumerator.Current.Value.gameObjects.Count; i++)
+            {
+                enumerator.Current.Value.gameObjects[i].GetComponent<Renderer>().sharedMaterial = enumerator.Current.Key;
+            }
+        }
+        _cacheSyncData.Clear();
+
         //不使用已有缓存,重新查找节点并缓存
         if (!useCacheParticles)
         {
             cacheParticles = this.GetComponentsInChildren<ParticleSystem>(true);
         }
 
+        //取得粒子材质球种类
         for (int i = 0; i < cacheParticles.Length; i++)
         {
-            var cpsArr = cacheParticles[i];
-            SyncData data;
-            data.renderer = cpsArr.GetComponent<Renderer>();
-            data.material = data.renderer.material;
-            data.gameObject = cpsArr.gameObject;
-
-            //需要替换shader
-            if (needReplaceShader)
-            {
-                ReplaceShader(data.material);
-            }
-            _cacheSyncData.Add(data);
+            PushParticleToSyncData(cacheParticles[i], needReplaceShader);
         }
 
         StartSyncClipRangeCoroutine();
+    }
+
+    /// <summary>
+    /// 往同步数据里添加新粒子
+    /// </summary>
+    /// <param name="particle"></param>
+    /// <param name="needReplaceShader"></param>
+    public void PushParticleToSyncData(ParticleSystem particle, bool needReplaceShader)
+    {
+        if (particle == null)
+        {
+            return;
+        }
+
+        Renderer render = particle.gameObject.GetComponent<Renderer>();
+        Material material = render.sharedMaterial;
+
+        if (_cacheSyncData.ContainsKey(material))
+        {
+            _cacheSyncData[material].gameObjects.Add(particle.gameObject);
+            render.sharedMaterial = _cacheSyncData[material].material;
+        }
+        else
+        {
+            SyncData data;
+            data.gameObjects = new List<GameObject>();
+            data.gameObjects.Add(particle.gameObject);
+            data.material = CreateDynamicMaterial(material, _cacheSyncData.Count, needReplaceShader);
+            render.sharedMaterial = data.material;
+            _cacheSyncData.Add(material, data);
+        }
     }
 
     /// <summary>
@@ -237,5 +298,37 @@ public class UIParticleClipper : MonoBehaviour
                 return;
             }
         }
+    }
+    /// <summary>
+    /// 创建临时共享材质球
+    /// </summary>
+    /// <param name="material"></param>
+    /// <param name="queue"></param>
+    /// <param name="needReplaceShader"></param>
+    /// <returns></returns>
+    Material CreateDynamicMaterial(Material material, int queue, bool needReplaceShader)
+    {
+        Material temp = new Material(material);
+        temp.name = "[NGUI Particle] " + material.name;
+        temp.hideFlags = (HideFlags.DontSave | HideFlags.NotEditable);
+        temp.CopyPropertiesFromMaterial(material);
+        //Hierarchy里的节点顺序可以影响GetComponentsInChildren数组的顺序，也就影响了RenderQueue
+        temp.renderQueue = 3000 + queue;
+
+#if !UNITY_FLASH
+        string[] keywords = material.shaderKeywords;
+        for (int i = 0; i < keywords.Length; ++i)
+        {
+            temp.EnableKeyword(keywords[i]);
+        }
+#endif
+
+        //需要替换shader
+        if (needReplaceShader)
+        {
+            ReplaceShader(temp);
+        }
+
+        return temp;
     }
 }
